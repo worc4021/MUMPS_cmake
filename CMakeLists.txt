@@ -4,24 +4,25 @@ project(MUMPS Fortran C CXX)
 # Obtain latest source by pulling the tar.gz from https://mumps-solver.org/MUMPS_{MUMPS VERSION currently 5.7.3}.tar.gz
 
 include(GNUInstallDirs)
+option(USE_INT64 "Use 64-bit integers" OFF)
+option(BUILD_MEX "Build MATLAB interface" ON)
 
 include($ENV{CMAKE_INSTALL_PREFIX}/cmake/GKlibTargets.cmake)
 include($ENV{CMAKE_INSTALL_PREFIX}/cmake/metisTargets.cmake)
-
-find_package(OpenMP REQUIRED)
-option(USE_INT64 "Use 64-bit integers" OFF)
-set(BLA_STATIC ON)
-if (USE_INT64)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_int_def64_h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/mumps_int_def.h COPYONLY)
-else()
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_int_def32_h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/mumps_int_def.h COPYONLY)
-endif()
 
 # As specified in INSTALL file, all external dependencies should use 64 bit integers. The mkl provides interfaces with 64 ilp64 and 32 lp64
 set(MKL_LINK static)
 set(MKL_THREADING intel_thread)
 set(MKL_INTERFACE lp64)
 find_package(MKL REQUIRED)
+
+
+if (USE_INT64)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_int_def64_h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/mumps_int_def.h COPYONLY)
+else()
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_int_def32_h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/mumps_int_def.h COPYONLY)
+endif()
+
 
 set(MUMPS_INCLUDEDIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
