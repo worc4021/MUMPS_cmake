@@ -30,6 +30,8 @@ list(APPEND ARCHS "d" "s" "c" "z")
 
 set(HEADER_INSTALL_DIR ${CMAKE_INSTALL_INCLUDEDIR}/mumps)
 
+enable_testing()
+
 add_subdirectory(PORD)
 add_subdirectory(libseq)
 add_subdirectory(src)

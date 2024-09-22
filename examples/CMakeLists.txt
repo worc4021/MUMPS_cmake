@@ -20,3 +20,24 @@ target_include_directories(multiple_arithmetics_example PRIVATE ${MUMPS_INCLUDED
 add_executable(c_example c_example.c)
 target_link_libraries(c_example PRIVATE dmumps)
 target_include_directories(c_example PRIVATE ${MUMPS_INCLUDEDIR})
+
+
+include(FortranCInterface)
+FortranCInterface_HEADER(${CMAKE_CURRENT_SOURCE_DIR}/FCMangle.h
+                            MACRO_NAMESPACE "FC_"
+                            SYMBOL_NAMESPACE "FC_")
+
+include(CTest)
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+include(GoogleTest)
+add_executable(cpp_example cpp_example.cpp)
+target_link_libraries(cpp_example PRIVATE dmumps GTest::gtest)
+target_include_directories(cpp_example PRIVATE ${MUMPS_INCLUDEDIR})
+gtest_add_tests(cpp_example "" AUTO)
