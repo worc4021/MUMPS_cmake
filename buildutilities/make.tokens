@@ -1,0 +1,17 @@
+T__0=1
+T__1=2
+T__2=3
+T__3=4
+WORD=5
+BACKSLASH=6
+STRING=7
+BASHOP=8
+FLAG=9
+COMMENT=10
+NEWLINE=11
+WS=12
+'.'=1
+':'=2
+'='=3
+'..'=4
+'\\'=6
