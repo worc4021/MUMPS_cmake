@@ -106,7 +106,8 @@
             "displayName": "linux GCC base",
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "gcc",
-                "CMAKE_CXX_COMPILER": "g++"
+                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_Fortran_COMPILER": "gfortran"
             },
             "hidden": true
         },
@@ -140,6 +141,33 @@
             "inherits": ["linux-gcc-base","macos-config-base"],
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "linux-intel-base",
+            "displayName": "linux Intel oneAPI base",
+            "inherits": ["config-base","linux-conifg-base"],
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "icx",
+                "CMAKE_CXX_COMPILER": "icx",
+                "CMAKE_Fortran_COMPILER": "ifx"
+            },
+            "hidden": true
+        },
+        {
+            "name": "linux-intel-debug-config",
+            "displayName": "linux Intel oneAPI Debug",
+            "inherits": "linux-intel-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "linux-intel-release-config",
+            "displayName": "linux Intel oneAPI Release",
+            "inherits": "linux-intel-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
             }
         }
     ],
@@ -218,6 +246,18 @@
             "inherits": "macos-build-base",
             "configurePreset": "macos-gcc-release-config",
             "displayName": "macos GCC Release"
+        },
+        {
+            "name": "linux-intel-debug-build",
+            "inherits": "linux-build-base",
+            "configurePreset": "linux-intel-debug-config",
+            "displayName": "linux Intel oneAPI Debug"
+        },
+        {
+            "name": "linux-intel-release-build",
+            "inherits": "linux-build-base",
+            "configurePreset": "linux-intel-release-config",
+            "displayName": "linux Intel oneAPI Release"
         }
     ],
     "testPresets": [
@@ -271,6 +311,18 @@
             "inherits": ["test-base","test-linux"],
             "configurePreset": "linux-gcc-debug-config",
             "displayName": "linux GCC Debug"
+        },
+        {
+            "name": "linux-intel-debug-test",
+            "inherits": ["test-base","test-linux"],
+            "configurePreset": "linux-intel-debug-config",
+            "displayName": "linux Intel oneAPI Debug"
+        },
+        {
+            "name": "linux-intel-release-test",
+            "inherits": ["test-base","test-linux"],
+            "configurePreset": "linux-intel-release-config",
+            "displayName": "linux Intel oneAPI Release"
         }
     ]
 }
