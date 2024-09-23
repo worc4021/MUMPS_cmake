@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <gtest/gtest.h>
-#include "FCmangle.h"
+#include "FCMangle.h"
 #include "mpi.h"
 #include "dmumps_c.h"
 #define JOB_INIT -1
