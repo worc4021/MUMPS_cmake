@@ -28,16 +28,31 @@ FortranCInterface_HEADER(${CMAKE_CURRENT_SOURCE_DIR}/FCMangle.h
                             SYMBOL_NAMESPACE "FC_")
 
 include(CTest)
-include(FetchContent)
-FetchContent_Declare(
-  googletest
-  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
-)
-# For Windows: Prevent overriding the parent project's compiler/linker settings
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
-include(GoogleTest)
-add_executable(cpp_example cpp_example.cpp)
-target_link_libraries(cpp_example PRIVATE libdmumps GTest::gtest)
-target_include_directories(cpp_example PRIVATE ${MUMPS_INCLUDEDIR})
-gtest_add_tests(cpp_example "" AUTO)
+# include(FetchContent)
+# FetchContent_Declare(
+#   googletest
+#   URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+# )
+# # For Windows: Prevent overriding the parent project's compiler/linker settings
+# set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+# FetchContent_MakeAvailable(googletest)
+# include(GoogleTest)
+# add_executable(cpp_example cpp_example.cpp)
+# target_link_libraries(cpp_example PRIVATE libdmumps GTest::gtest)
+# target_include_directories(cpp_example PRIVATE ${MUMPS_INCLUDEDIR})
+# gtest_add_tests(cpp_example "" AUTO)
+
+
+add_test(NAME dsimpletest_exe COMMAND dsimpletest < ${CMAKE_CURRENT_SOURCE_DIR}/input_simpletest_real)
+add_test(NAME ssimpletest_exe COMMAND ssimpletest < ${CMAKE_CURRENT_SOURCE_DIR}/input_simpletest_real)
+add_test(NAME csimpletest_exe COMMAND csimpletest < ${CMAKE_CURRENT_SOURCE_DIR}/input_simpletest_cmplx)
+add_test(NAME zsimpletest_exe COMMAND zsimpletest < ${CMAKE_CURRENT_SOURCE_DIR}/input_simpletest_cmplx)
+
+add_test(NAME dsimpletest_save_restore_exe COMMAND dsimpletest_save_restore < ${CMAKE_CURRENT_SOURCE_DIR}/input_simpletest_real)
+add_test(NAME ssimpletest_save_restore_exe COMMAND ssimpletest_save_restore < ${CMAKE_CURRENT_SOURCE_DIR}/input_simpletest_real)
+add_test(NAME csimpletest_save_restore_exe COMMAND csimpletest_save_restore < ${CMAKE_CURRENT_SOURCE_DIR}/input_simpletest_cmplx)
+add_test(NAME zsimpletest_save_restore_exe COMMAND zsimpletest_save_restore < ${CMAKE_CURRENT_SOURCE_DIR}/input_simpletest_cmplx)
+
+add_test(NAME c_example_save_restore_exe COMMAND c_example_save_restore)
+add_test(NAME c_example_exe COMMAND c_example)
+add_test(NAME multiple_arithmetics_example_exe COMMAND multiple_arithmetics_example)
