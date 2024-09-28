@@ -4,6 +4,7 @@ from stringtemplate3.templates import StringTemplate as ST
 from DependencyGraph import DependencyGraph
 from textwrap import dedent
 
+
 class Templater:
     def __init__(self, dg : DependencyGraph):
         self.dg = dg
@@ -16,19 +17,51 @@ class Templater:
 
         template = dedent("""\
         add_library(<name> OBJECT <sources; separator=" ">)
+        target_include_directories(<name> PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+        set_target_properties(<name> PROPERTIES Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
+            LINKER_LANGUAGE C)
+        <if(objects)>
+        target_link_libraries(<name> PUBLIC <objects:target_object(); separator=" ">)
+        <endif>
+
+        target_link_libraries(<name> PRIVATE pord metis::metis mpiseq MKL::MKL)     
+                                               
+        """)
+        self.group.defineTemplate(name='add_single_object_lib',template=template)
+
+
+        template = dedent("""\
+        add_library(<name> OBJECT <sources; separator=" ">)
         set_target_properties(<name> PROPERTIES Fortran_MODULE_DIRECTORY <name:object_include()>)
-        target_include_directories(<name> PUBLIC <name:object_include()> <module_includes:object_include(); separator=" "> ${MUMPS_INCLUDEDIR})
+        target_include_directories(<name> PUBLIC <name:object_include()> <module_includes:object_include(); separator=" "> $\\<BUILD_INTERFACE:${MUMPS_INCLUDEDIR}\\> $\\<INSTALL_INTERFACE:${HEADER_INSTALL_DIR}\\>)
         <if(objects)>target_link_libraries(<name> PUBLIC <objects:target_object(); separator=" ">)<endif>
+        target_link_libraries(<name> PRIVATE pord metis::metis mpiseq MKL::MKL)
         """)
         self.group.defineTemplate(name='add_obj_library',template=template)
 
         template = dedent("""\
-        add_library(<name> STATIC <sources; separator=" ">)
+        add_library(<name> STATIC <if(sources)><sources; separator=" "><else>mumps_common.h<endif>)
         set_target_properties(<name> PROPERTIES Fortran_MODULE_DIRECTORY <name:object_include()>)
         target_include_directories(<name> PUBLIC <name:object_include()> <module_includes:object_include(); separator=" "> ${MUMPS_INCLUDEDIR})
         <if(objects)>target_link_libraries(<name> PUBLIC <objects:target_object(); separator=" "> <libs; separator=" ">)<endif>
         """)
         self.group.defineTemplate(name='add_library',template=template)
+
+        template = dedent("""\
+        add_library(<name> STATIC <if(sources)><sources; separator=" "><else>mumps_common.h<endif>)
+        target_include_directories(<name> PUBLIC $\\<BUILD_INTERFACE:${MUMPS_INCLUDEDIR}\\> $\\<INSTALL_INTERFACE:${HEADER_INSTALL_DIR}\\>)
+        target_include_directories(<name> PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
+        set_target_properties(<name> PROPERTIES Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules)
+        <if(objects)>
+        target_link_libraries(<name> PRIVATE <objects:target_object(); separator=" ">)
+        set_target_properties(<name> PROPERTIES LINKER_LANGUAGE C)
+        <endif>
+
+        <if(libs)>
+        target_link_libraries(<name> PUBLIC <libs; separator=" ">)
+        <endif>
+        """)
+        self.group.defineTemplate(name='add_library_without_modules',template=template)
 
         template = dedent("""\
         foreach(ARITH ${ARCHS})
@@ -144,3 +177,84 @@ class Templater:
         stfe["libraries"] = [special, st.toString() + "\n"]
         
         return stfe.toString()
+    
+    def many_objects(self, lib: str) -> str:
+        
+        retval = ""
+
+        (oc,oa) = self.dg.sorted_objects()
+
+        common_files_without_dependents = []
+
+        handle = lambda x: x.endswith('.o') is not True
+
+        for obj in oc:
+            # All top level dependencies
+            dependencies = self.dg.dependencies[obj].copy()
+            for i in range(len(self.dg.dependencies[obj])):
+                dep = self.dg.dependencies[obj][i]
+                if dep in common_files_without_dependents:
+                    dependencies.remove(dep)
+                    dependencies += self.dg.dependencies[dep]
+            object_dependencies = [o.replace('.o','') for o in dependencies if o.endswith('.o')]
+            file_dependencies = [f for f in dependencies if f.endswith('.F') or f.endswith('.c')]
+            lib_dependencies = ['lib'+l.replace('.lib','') for l in dependencies if l.endswith('.lib')]
+            lib_dependencies += [l for l in dependencies if '::' in l]
+            # If the object only compiles one file and no other objects depend on it all subsequent mentiones of the object should be replaced by the file
+            if obj.endswith('.o'):
+                if self.dg.has_dependents(obj, handle) or self.dg.is_fortran(obj) is False:
+                    st = self.group.getInstanceOf('add_single_object_lib')
+                    st["name"] = obj.replace('.o','')
+                    st["sources"] = file_dependencies
+                    st["objects"] = object_dependencies
+                    retval += st.toString()
+                else:
+                    common_files_without_dependents.append(obj)
+            elif obj.endswith('.lib'):
+                st = self.group.getInstanceOf('add_library_without_modules')
+                st["name"] = 'lib'+obj.replace('.lib','')
+                st["sources"] = file_dependencies
+                st["objects"] = object_dependencies
+                st["libs"] = lib_dependencies
+                retval += st.toString()
+            
+        
+        arith_list = []
+        arith_obj_without_dependents = []
+        for obj in oa:
+            dependencies = self.dg.dependencies[obj].copy()
+            for i in range(len(self.dg.dependencies[obj])):
+                dep = self.dg.dependencies[obj][i]
+                if dep in common_files_without_dependents or dep in arith_obj_without_dependents:
+                    dependencies.remove(dep)
+                    dependencies += self.dg.dependencies[dep]
+
+            object_dependencies = [o.replace('.o','') for o in dependencies if o.endswith('.o')]
+            file_dependencies = [f for f in dependencies if f.endswith('.F') or f.endswith('.c')]
+            lib_dependencies = ['lib'+l.replace('.lib','') for l in dependencies if l.endswith('.lib')]
+            lib_dependencies += [l for l in dependencies if '::' in l]
+            if obj.endswith('.o') and '${ARITH}' in obj:
+                if self.dg.has_dependents(obj, handle) or self.dg.is_fortran(obj) is False:
+                    st = self.group.getInstanceOf('add_single_object_lib')
+                    st["name"] = obj.replace('.o','')
+                    st["sources"] = file_dependencies
+                    st["objects"] = object_dependencies
+                    arith_list.append(st.toString())
+                else:
+                    arith_obj_without_dependents.append(obj)
+
+            elif obj.endswith('.lib') and '${ARITH}' in obj:
+                st = self.group.getInstanceOf('add_library_without_modules')
+                st["name"] = 'lib'+obj.replace('.lib','')
+                st["sources"] = file_dependencies
+                st["objects"] = object_dependencies
+                st["libs"] = lib_dependencies
+                arith_list.append(st.toString())
+            
+
+        stfe = self.group.getInstanceOf('foreach')
+        stfe["libraries"] = arith_list
+
+        retval += "\n" + stfe.toString()
+
+        return retval

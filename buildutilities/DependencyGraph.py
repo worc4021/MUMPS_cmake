@@ -1,4 +1,6 @@
 import os
+from graphlib import TopologicalSorter
+
 
 class DependencyGraph:
     def __init__(self, basedir : str):
@@ -21,17 +23,26 @@ class DependencyGraph:
         object2 = object2.replace('$(ARITH)','${ARITH}')
         self.add_object(object1)
         self.add_object(object2)
-        self.dependencies[object1].append(object2)
+        if object1 == object2:
+            return
+        if object2 not in self.dependencies[object1]:
+            self.dependencies[object1].append(object2)
 
     def isfile(self, name : str):
         if os.path.isfile(os.path.join(self.basedir, name.replace('${ARITH}','d'))):
             return  None
         if os.path.isfile(os.path.join(self.basedir, name.replace('${ARITH}','d').replace('.o','.c'))):
             return  name.replace('.o','.c')
-        if os.path.isfile(os.path.join(self.basedir, name.replace('${ARITH}','d').replace('.o','.f'))):
-            return  name.replace('.o','.f')
+        if os.path.isfile(os.path.join(self.basedir, name.replace('${ARITH}','d').replace('.o','.F'))):
+            return  name.replace('.o','.F')
         return None
     
+    def get_dependencies(self, object : str):
+        obj = object.replace('$(ARITH)','${ARITH}')
+        if obj not in self.dependencies:
+            return []
+        return self.dependencies[object.replace('$(ARITH)','${ARITH}')]
+
     def has_dependencies(self, object : str):
         return object in self.dependencies and len(self.dependencies[object]) > 0
     
@@ -84,13 +95,28 @@ class DependencyGraph:
 
         return (retval, arch_list)
     
+    def sorted_objects(self):
+        g_arith = {}
+        g_common = {}
+        for object in self.objects:
+            if '${ARITH}' not in object and object not in g_common:
+                g_common[object] = self.dependencies[object]
+            elif '${ARITH}' in object and object not in g_arith:
+                g_arith[object] = self.dependencies[object]
+        tsc = TopologicalSorter(g_common)
+        tsa = TopologicalSorter(g_arith)
+
+        oc = tuple(tsc.static_order())
+        oa = tuple(tsa.static_order())
+        return (oc, oa)
+
     def should_become_library(self, object : str):
         return ('mumps_c.c' in self.dependencies[object]) or ((object.endswith('.o') or object.endswith('.lib')) and len(self.dependencies[object]) > 1)
     
     def all_file_dependencies(self, libname: str) -> list[str]:
         retval = []
         for dep in self.dependencies[libname]:
-            if ('mumps_c.c' not in dep) and dep.endswith('.c') or dep.endswith('.f'):
+            if ('mumps_c.c' not in dep) and dep.endswith('.c') or dep.endswith('.F'):
                 retval.append(dep)
             else:
                 tmp = self.all_file_dependencies(dep)
@@ -98,3 +124,15 @@ class DependencyGraph:
                     if t not in retval:
                         retval.append(t)
         return retval
+    
+    def has_dependents(self, object : str, discard_entries = None):
+        for key in self.dependencies:
+            if discard_entries is not None and discard_entries(key):
+                continue
+            if object in self.dependencies[key]:
+                return True
+        return False
+    
+    def is_fortran(self, object : str):
+        isfortran = [f.endswith('.F') for f in self.dependencies[object]]
+        return all(isfortran)
