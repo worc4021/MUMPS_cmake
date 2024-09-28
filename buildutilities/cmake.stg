@@ -1,0 +1,5 @@
+group cmake;
+
+target_object(x) ::= "$\<TARGET_OBJECTS:<x>\>"
+object_include(object) ::= "${CMAKE_CURRENT_BINARY_DIR}/<object>"
+
