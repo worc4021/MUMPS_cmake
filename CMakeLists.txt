@@ -42,7 +42,7 @@ if (BUILD_MEX)
 endif()
 
 
-install(TARGETS dmumps cmumps smumps zmumps pord mpiseq
+install(TARGETS libdmumps libcmumps libsmumps libzmumps pord mpiseq libmumps_common
       EXPORT mumpsTargets
       LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
       ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
