@@ -178,7 +178,7 @@ class Templater:
         
         return stfe.toString()
     
-    def many_objects(self, lib: str) -> str:
+    def many_objects(self) -> str:
         
         retval = ""
 
