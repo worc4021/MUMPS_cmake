@@ -13,6 +13,7 @@ add_library(pord
     lib/interface.c 
     lib/sort.c 
     lib/minpriority.c)
+add_library(mumps::pord ALIAS pord)
 target_include_directories(pord PUBLIC 
                             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                             $<INSTALL_INTERFACE:/pord>)
