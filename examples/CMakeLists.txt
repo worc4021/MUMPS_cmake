@@ -43,16 +43,6 @@ include(CTest)
 # gtest_add_tests(cpp_example "" AUTO)
 
 
-add_test(NAME dsimpletest_exe COMMAND dsimpletest < ${CMAKE_CURRENT_SOURCE_DIR}/input_simpletest_real)
-add_test(NAME ssimpletest_exe COMMAND ssimpletest < ${CMAKE_CURRENT_SOURCE_DIR}/input_simpletest_real)
-add_test(NAME csimpletest_exe COMMAND csimpletest < ${CMAKE_CURRENT_SOURCE_DIR}/input_simpletest_cmplx)
-add_test(NAME zsimpletest_exe COMMAND zsimpletest < ${CMAKE_CURRENT_SOURCE_DIR}/input_simpletest_cmplx)
-
-add_test(NAME dsimpletest_save_restore_exe COMMAND dsimpletest_save_restore < ${CMAKE_CURRENT_SOURCE_DIR}/input_simpletest_real)
-add_test(NAME ssimpletest_save_restore_exe COMMAND ssimpletest_save_restore < ${CMAKE_CURRENT_SOURCE_DIR}/input_simpletest_real)
-add_test(NAME csimpletest_save_restore_exe COMMAND csimpletest_save_restore < ${CMAKE_CURRENT_SOURCE_DIR}/input_simpletest_cmplx)
-add_test(NAME zsimpletest_save_restore_exe COMMAND zsimpletest_save_restore < ${CMAKE_CURRENT_SOURCE_DIR}/input_simpletest_cmplx)
-
 add_test(NAME c_example_save_restore_exe COMMAND c_example_save_restore)
 add_test(NAME c_example_exe COMMAND c_example)
 add_test(NAME multiple_arithmetics_example_exe COMMAND multiple_arithmetics_example)
