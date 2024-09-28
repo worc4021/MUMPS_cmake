@@ -70,7 +70,8 @@ def main(argv):
             dg.add_dependency(libname, deps)
 
     
-    dg.add_dependency('${ARITH}mumps_f77.o','${ARITH}mumps_c.o')
+    for obj in ['${ARITH}mumps_f77.o','${ARITH}fac_mem_dynamic.o']:
+        dg.add_dependency(obj,'${ARITH}mumps_c.o')
 
     # This one somehow is implicit
     for lib in ['mumps_common.lib','mumps::pord','metis::metis','mumps::mpiseq','MKL::MKL']:
@@ -79,7 +80,7 @@ def main(argv):
     
     templater = Templater(dg)
 
-    with open("CMakeLists.txt", "w+") as f:
+    with open(os.path.join(basedir,"CMakeLists.txt"), "w+") as f:
         f.write(templater.many_objects())
 
     
