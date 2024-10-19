@@ -16,7 +16,7 @@ add_library(pord
 add_library(mumps::pord ALIAS pord)
 target_include_directories(pord PUBLIC 
                             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-                            $<INSTALL_INTERFACE:/pord>)
+                            $<INSTALL_INTERFACE:${HEADER_INSTALL_DIR}/pord>)
 
 set_target_properties(pord PROPERTIES 
         POSITION_INDEPENDENT_CODE ON
