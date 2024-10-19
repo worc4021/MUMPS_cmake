@@ -63,9 +63,9 @@ add_subdirectory(PORD)
 add_subdirectory(libseq)
 add_subdirectory(src)
 add_subdirectory(examples)
-# if (BUILD_MEX)
-#     add_subdirectory(MATLAB)
-# endif()
+if (BUILD_MEX)
+    add_subdirectory(MATLAB)
+endif()
 
 
 install(TARGETS libdmumps libcmumps libsmumps libzmumps pord mpiseq libmumps_common
