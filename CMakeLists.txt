@@ -10,6 +10,8 @@ option(BUILD_MEX "Build MATLAB interface" ON)
 include($ENV{CMAKE_INSTALL_PREFIX}/cmake/GKlibTargets.cmake)
 include($ENV{CMAKE_INSTALL_PREFIX}/cmake/metisTargets.cmake)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
+
 # As specified in INSTALL file, all external dependencies should use 64 bit integers. The mkl provides interfaces with 64 ilp64 and 32 lp64
 set(MKL_LINK static)
 set(MKL_THREADING intel_thread)
