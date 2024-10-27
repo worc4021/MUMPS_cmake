@@ -18,8 +18,11 @@ class Templater:
         template = dedent("""\
         add_library(<name> OBJECT <sources; separator=" ">)
         target_include_directories(<name> PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
-        set_target_properties(<name> PROPERTIES Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
-            LINKER_LANGUAGE C)
+        set_target_properties(<name> PROPERTIES 
+            Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
+            LINKER_LANGUAGE C
+            POSITION_INDEPENDENT_CODE ON
+            MSVC_RUNTIME_LIBRARY "MultiThreaded$\\<$\\<CONFIG:Debug\\>:Debug\\>")
         <if(objects)>
         target_link_libraries(<name> PUBLIC <objects:target_object(); separator=" ">)
         <endif>
@@ -54,7 +57,10 @@ class Templater:
         set_target_properties(<name> PROPERTIES Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules)
         <if(objects)>
         target_link_libraries(<name> PRIVATE <objects:target_object(); separator=" ">)
-        set_target_properties(<name> PROPERTIES LINKER_LANGUAGE C)
+        set_target_properties(<name> PROPERTIES 
+                          LINKER_LANGUAGE C
+                          POSITION_INDEPENDENT_CODE ON
+                          MSVC_RUNTIME_LIBRARY "MultiThreaded$\\<$\\<CONFIG:Debug\\>:Debug\\>")
         <endif>
 
         <if(libs)>
