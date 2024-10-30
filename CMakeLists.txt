@@ -12,7 +12,7 @@ include($ENV{CMAKE_INSTALL_PREFIX}/cmake/metisTargets.cmake)
 
 # As specified in INSTALL file, all external dependencies should use 64 bit integers. The mkl provides interfaces with 64 ilp64 and 32 lp64
 set(MKL_LINK static)
-set(MKL_THREADING intel_thread)
+set(MKL_THREADING sequential)
 set(MKL_INTERFACE lp64)
 find_package(MKL REQUIRED)
 
@@ -70,9 +70,9 @@ endif()
 
 install(TARGETS libdmumps libcmumps libsmumps libzmumps pord mpiseq libmumps_common
       EXPORT mumpsTargets
-      LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-      ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-      RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+      LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/${CMAKE_BUILD_TYPE}
+      ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/${CMAKE_BUILD_TYPE}
+      RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}/${CMAKE_BUILD_TYPE})
 file(GLOB HEADER_FILES "include/*.h")
 install(FILES ${HEADER_FILES} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/mumps)
 install(EXPORT mumpsTargets
