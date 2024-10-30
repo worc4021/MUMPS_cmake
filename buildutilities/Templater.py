@@ -64,7 +64,7 @@ class Templater:
         add_dependencies(<name> <objects; separator=" ">)
         add_custom_command(TARGET <name> 
                     POST_BUILD
-                    COMMAND ar -r $\\<TARGET_FILE:<name>\\> <objects:target_object(); separator=" ">)
+                    COMMAND ${CMAKE_AR} ${AR_APPEND} $\\<TARGET_FILE:<name>\\> <objects:target_object(); separator=" ">)
         <endif>
                           
         <if(libs)>
