@@ -67,11 +67,6 @@ if (BUILD_MEX)
     add_subdirectory(MATLAB)
 endif()
 
-if(UNIX)
-    set(AR_APPEND "rv")
-endif(UNIX)
-
-
 install(TARGETS libdmumps libcmumps libsmumps libzmumps pord mpiseq libmumps_common
       EXPORT mumpsTargets
       LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/${CMAKE_BUILD_TYPE}
