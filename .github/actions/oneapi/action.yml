@@ -29,7 +29,7 @@ runs:
     if: ${{ runner.os }} != 'Linux'
     run: |
       install-oneAPI.sh ${{ inputs.LINUX_HPCKIT_URL }}  ${{ inputs.LINUX_COMPONENTS }}
-    working-directory: ${{ github.action_path }}/scripts
+    working-directory: ${{ github.action_path }}
     shell: bash
 
   
