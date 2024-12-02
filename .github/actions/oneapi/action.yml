@@ -1,0 +1,56 @@
+name: oneApi-windows
+description: Install Intel oneAPI
+inputs:
+  WINDOWS_HPCKIT_URL: 
+    description: 'URL to download the Intel oneAPI HPC Toolkit for Windows'
+    default: https://registrationcenter-download.intel.com/akdlm/IRC_NAS/f07e32fa-b505-4b90-8a79-e328ce9ad9d6/intel-oneapi-hpc-toolkit-2025.0.0.822_offline.exe
+    required: false
+  WINDOWS_CPP_COMPONENTS: # If more than one component required then separate them with : (colon)
+    description: 'Components to install for Intel oneAPI C++ compiler for Windows'
+    default: intel.oneapi.win.cpp-dpcpp-common
+    required: false
+  LINUX_HPCKIT_URL:
+    description: 'URL to download the Intel oneAPI HPC Toolkit for Linux'
+    default: https://registrationcenter-download.intel.com/akdlm/IRC_NAS/0884ef13-20f3-41d3-baa2-362fc31de8eb/intel-oneapi-hpc-toolkit-2025.0.0.825_offline.sh
+    required: false
+  LINUX_COMPONENTS: 
+    description: 'Components to install for Intel oneAPI C++ compiler for Linux'
+    default: intel-oneapi-dpcpp-cpp-compiler
+    required: false
+  
+
+runs:
+  using: composite
+  steps:
+  - uses: actions/checkout@v4
+  - name: Check cache for Intel oneAPI
+    if: ${{ runner.os }} == 'Windows'
+    id: cache-install
+    uses: actions/cache@v4
+    with:
+      path: |
+          C:\Program Files (x86)\Intel
+      key: install-${{ inputs.WINDOWS_HPCKIT_URL }}-${{ inputs.WINDOWS_CPP_COMPONENTS }}-compiler-${{ hashFiles('${{ github.action_path }}/action.yml') }}
+  
+  - name: Install Intel oneAPI
+    if: steps.cache-install.outputs.cache-hit != 'true' && ${{ runner.os }} == 'Windows'
+    run: |
+      install-oneAPI.bat ${{ inputs.WINDOWS_HPCKIT_URL }}  ${{ inputs.WINDOWS_CPP_COMPONENTS }}
+    working-directory: ${{ github.action_path }}/scripts
+    shell: cmd
+
+  - name: Install Intel oneAPI
+    if: ${{ runner.os }} != 'Linux'
+    run: |
+      install-oneAPI.sh ${{ inputs.LINUX_HPCKIT_URL }}  ${{ inputs.LINUX_COMPONENTS }}
+    working-directory: ${{ github.action_path }}/scripts
+    shell: bash
+
+  - name: Set up variables
+    if: ${{ runner.os }} == 'Windows'
+    run: |
+      updateEnv.bat
+    shell: cmd
+    working-directory: ${{ github.action_path }}/scripts
+
+  
