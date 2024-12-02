@@ -23,7 +23,7 @@ jobs:
       run: |
         curl --output ${{ runner.temp }}/MUMPS_5.7.3.tar.gz ${{ secrets.MUMPS_URL }}/MUMPS_5.7.3.tar.gz
         tar -xzf ${{ runner.temp }}/MUMPS_5.7.3.tar.gz -C ${{ runner.temp }}
-        cp -r ${{ runner.temp }}/MUMPS_5.7.3/ ${{ github.workspace }}
+        cp -r ${{ runner.temp }}/MUMPS_5.7.3/* ${{ github.workspace }}
         ls -lAh ${{ github.workspace }}
       shell: bash
     # - name: Setup Ninja
