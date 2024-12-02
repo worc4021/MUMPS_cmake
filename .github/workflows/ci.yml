@@ -1,0 +1,56 @@
+name: Build
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: 
+  push:
+    branches: 
+    - master
+  pull_request:
+    branches: 
+    - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  checks: write
+  id-token: write
+
+jobs:
+  linux-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Pull MUMPS
+      run: |
+        curl --output ${{ runner.temp }}/MUMPS_5.7.3.tar.gz ${{ secrets.MUMPS_URL }}/MUMPS_5.7.3.tar.gz
+        tar -xzf ${{ runner.temp }}/MUMPS_5.7.3.tar.gz
+        cp -r MUMPS_5.7.3 ${{ github.workspace }}
+        ls -lAh ${{ github.workspace }}
+      shell: bash
+    # - name: Setup Ninja
+    #   uses: seanmiddleditch/gha-setup-ninja@master
+    # - name: Setup cmake
+    #   uses: jwlawson/actions-setup-cmake@v2
+    #   with:
+    #     cmake-version: '3.29.x'
+    # - name: Configure
+    #   run: |
+    #     cmake --preset linux-gcc-release-config -DBQPD_BUILD_MATLAB:BOOL=OFF
+    #   working-directory: ${{ github.workspace }}
+    # - name: Build
+    #   run: |
+    #     cmake --build --preset linux-gcc-release-build --target install
+    #   working-directory: ${{ github.workspace }}
+    # - name: Test
+    #   run: |
+    #     ctest --preset linux-gcc-release-test --output-junit ${{ github.workspace }}/test-results.xml
+    #   working-directory: ${{ github.workspace }}
+    # - name: Upload library
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: bqpd-linux-gcc
+    #     path: ${{ github.workspace }}/out/install/linux-gcc-release-config
+    # - name: Publish Test Report
+    #   uses: mikepenz/action-junit-report@v5
+    #   if: success() || failure()
+    #   with:
+    #     report_paths: ${{ github.workspace }}/test-results.xml
