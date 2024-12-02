@@ -26,23 +26,26 @@ jobs:
         cp -r ${{ runner.temp }}/MUMPS_5.7.3/* ${{ github.workspace }}
         ls -lAh ${{ github.workspace }}
       shell: bash
-    - name: Setup Ninja
-      uses: seanmiddleditch/gha-setup-ninja@master
-    - name: Setup cmake
-      uses: jwlawson/actions-setup-cmake@v2
+    - uses: ./.github/actions/oneapi
       with:
-        cmake-version: '3.29.x'
-    - name: Configure
-      run: |
-        cmake --preset linux-gcc-release-config -DBQPD_BUILD_MATLAB:BOOL=OFF
-      working-directory: ${{ github.workspace }}
-    - name: Build
-      run: |
-        cmake --build --preset linux-gcc-release-build --target install
-      working-directory: ${{ github.workspace }}
-    - name: Upload library
-      uses: actions/upload-artifact@v4
-      with:
-        name: mumps-linux-gcc
-        path: ${{ github.workspace }}/out/install/linux-gcc-release-config
+        LINUX_COMPONENTS: intel.oneapi.lin.mkl.devel
+    # - name: Setup Ninja
+    #   uses: seanmiddleditch/gha-setup-ninja@master
+    # - name: Setup cmake
+    #   uses: jwlawson/actions-setup-cmake@v2
+    #   with:
+    #     cmake-version: '3.29.x'
+    # - name: Configure
+    #   run: |
+    #     cmake --preset linux-gcc-release-config -DBQPD_BUILD_MATLAB:BOOL=OFF
+    #   working-directory: ${{ github.workspace }}
+    # - name: Build
+    #   run: |
+    #     cmake --build --preset linux-gcc-release-build --target install
+    #   working-directory: ${{ github.workspace }}
+    # - name: Upload library
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: mumps-linux-gcc
+    #     path: ${{ github.workspace }}/out/install/linux-gcc-release-config
 
