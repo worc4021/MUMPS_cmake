@@ -31,6 +31,12 @@ runs:
       ${{ github.action_path }}/install-oneAPI.sh ${{ inputs.LINUX_HPCKIT_URL }}  ${{ inputs.LINUX_COMPONENTS }}
     shell: bash
 
+  - name: Make oneapi available
+    if: ${{ runner.os }} != 'Linux'
+    run: |
+      ${{ github.action_path }}/update-environment.sh
+    shell: bash
+
   
 
   
