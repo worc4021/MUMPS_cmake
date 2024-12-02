@@ -54,4 +54,3 @@ jobs:
     #   if: success() || failure()
     #   with:
     #     report_paths: ${{ github.workspace }}/test-results.xml
-https://mumps-solver.org/MUMPS_5.7.3.tar.gz
