@@ -3,10 +3,10 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: 
   push:
     branches: 
-    - master
+    - main
   pull_request:
     branches: 
-    - master
+    - main
   workflow_dispatch:
 
 permissions:
@@ -22,8 +22,8 @@ jobs:
     - name: Pull MUMPS
       run: |
         curl --output ${{ runner.temp }}/MUMPS_5.7.3.tar.gz ${{ secrets.MUMPS_URL }}/MUMPS_5.7.3.tar.gz
-        tar -xzf ${{ runner.temp }}/MUMPS_5.7.3.tar.gz
-        cp -r MUMPS_5.7.3 ${{ github.workspace }}
+        tar -xzf ${{ runner.temp }}/MUMPS_5.7.3.tar.gz -C ${{ runner.temp }}
+        cp -r ${{ runner.temp }}/MUMPS_5.7.3 ${{ github.workspace }}
         ls -lAh ${{ github.workspace }}
       shell: bash
     # - name: Setup Ninja
