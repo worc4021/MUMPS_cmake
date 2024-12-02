@@ -28,8 +28,7 @@ runs:
   - name: Install Intel oneAPI
     if: ${{ runner.os }} != 'Linux'
     run: |
-      install-oneAPI.sh ${{ inputs.LINUX_HPCKIT_URL }}  ${{ inputs.LINUX_COMPONENTS }}
-    working-directory: ${{ github.action_path }}
+      ${{ github.action_path }}/install-oneAPI.sh ${{ inputs.LINUX_HPCKIT_URL }}  ${{ inputs.LINUX_COMPONENTS }}
     shell: bash
 
   
