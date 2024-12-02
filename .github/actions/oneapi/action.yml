@@ -23,16 +23,21 @@ runs:
   using: composite
   steps:
   - uses: actions/checkout@v4
+  - name: Check cache for Intel oneAPI
+    id: cache-install
+    uses: actions/cache@v4
+    with:
+      path: |
+          /opt/intel/oneapi
+      key: install-${{ inputs.LINUX_HPCKIT_URL }}-${{ inputs.LINUX_COMPONENTS }}-${{ hashFiles('${{ github.action_path }}/action.yml') }}
   
-
   - name: Install Intel oneAPI
-    if: ${{ runner.os }} != 'Linux'
+    if: steps.cache-install.outputs.cache-hit != 'true'
     run: |
       ${{ github.action_path }}/install-oneAPI.sh ${{ inputs.LINUX_HPCKIT_URL }}  ${{ inputs.LINUX_COMPONENTS }}
     shell: bash
 
   - name: Make oneapi available
-    if: ${{ runner.os }} != 'Linux'
     run: |
       ${{ github.action_path }}/update-environment.sh
     shell: bash
