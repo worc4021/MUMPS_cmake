@@ -24,7 +24,7 @@ jobs:
         curl --output ${{ runner.temp }}/MUMPS_5.7.3.tar.gz ${{ secrets.MUMPS_URL }}/MUMPS_5.7.3.tar.gz
         tar -xzf ${{ runner.temp }}/MUMPS_5.7.3.tar.gz -C ${{ runner.temp }}
         cp -r ${{ runner.temp }}/MUMPS_5.7.3/* ${{ github.workspace }}
-        ls -lAh ${{ github.workspace }}
+        ls -lAh ${{ github.workspace }}/src
       shell: bash
     - name: Prepare pulling cmake installed libraries
       run: |
@@ -45,7 +45,7 @@ jobs:
         workflow: ci.yml
     - uses: ./.github/actions/oneapi
       with:
-        LINUX_COMPONENTS: 
+        LINUX_COMPONENTS: intel.oneapi.lin.mkl.devel
     - name: Setup Ninja
       uses: seanmiddleditch/gha-setup-ninja@master
     - name: Setup cmake
