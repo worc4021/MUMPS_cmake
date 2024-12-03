@@ -54,7 +54,7 @@ jobs:
         cmake-version: '3.29.x'
     - name: Configure
       run: |
-        cmake --preset linux-gcc-release-config -DBQPD_BUILD_MATLAB:BOOL=OFF
+        cmake --preset linux-gcc-release-config -DBUILD_MEX:BOOL=OFF
       working-directory: ${{ github.workspace }}
     - name: Build
       run: |
