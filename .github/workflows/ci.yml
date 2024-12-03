@@ -54,6 +54,7 @@ jobs:
         cmake-version: '3.29.x'
     - name: Configure
       run: |
+        ls -lAh ${{ github.workspace }}/src
         cmake --preset linux-gcc-release-config -DBUILD_MEX:BOOL=OFF
       working-directory: ${{ github.workspace }}
     - name: Build
