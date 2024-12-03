@@ -19,6 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    - uses: ./.github/actions/oneapi
+      with:
+        LINUX_COMPONENTS: intel.oneapi.lin.mkl.devel
     - name: Pull MUMPS
       run: |
         curl --output ${{ runner.temp }}/MUMPS_5.7.3.tar.gz ${{ secrets.MUMPS_URL }}/MUMPS_5.7.3.tar.gz
@@ -43,9 +46,6 @@ jobs:
         repo: worc4021/METIS
         path: ${{ runner.TEMP }}
         workflow: ci.yml
-    - uses: ./.github/actions/oneapi
-      with:
-        LINUX_COMPONENTS: intel.oneapi.lin.mkl.devel
     - name: Setup Ninja
       uses: seanmiddleditch/gha-setup-ninja@master
     - name: Setup cmake
@@ -54,7 +54,6 @@ jobs:
         cmake-version: '3.29.x'
     - name: Configure
       run: |
-        ls -lAh ${{ github.workspace }}/src
         cmake --preset linux-gcc-release-config -DBUILD_MEX:BOOL=OFF
       working-directory: ${{ github.workspace }}
     - name: Build
