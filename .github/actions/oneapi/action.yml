@@ -39,20 +39,7 @@ runs:
 
   - name: Make oneapi available
     run: |
-      for var in $(compgen -v); do
-          eval "before_$var=\"\$$var\""
-      done
-
-      source /opt/intel/oneapi/setvars.sh
-
-      # Compare and echo the environment variables that are new or have changed
-      for var in $(compgen -v); do
-          before_var="before_$var"
-          if [[ "$var" != before_* ]] && [ "${!before_var}" != "${!var}" ]; then
-              echo "Updating $var"
-              echo "$var=${!var}" >> "$GITHUB_ENV"
-          fi
-      done
+      ${{ github.action_path }}/update-environment.sh
     shell: bash
 
   
