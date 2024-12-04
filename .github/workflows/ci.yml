@@ -19,9 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: ./.github/actions/oneapi
+    - uses: worc4021/oneApi@v8
       with:
-        LINUX_COMPONENTS: intel.oneapi.lin.mkl.devel
+        icx: true
+        ifx: true
+        mkl: true
     - name: Pull MUMPS
       run: |
         curl --output ${{ runner.temp }}/MUMPS_5.7.3.tar.gz ${{ secrets.MUMPS_URL }}/MUMPS_5.7.3.tar.gz
@@ -35,14 +37,14 @@ jobs:
     - name: Download GKlib
       uses: dawidd6/action-download-artifact@v6
       with: 
-        name: gklib-linux-gcc
+        name: gklib-linux-intel
         repo: worc4021/GKlib
         path: ${{ runner.TEMP }}
         workflow: ci.yml
     - name: Download METIS
       uses: dawidd6/action-download-artifact@v6
       with: 
-        name: metis-linux-gcc
+        name: metis-linux-intel
         repo: worc4021/METIS
         path: ${{ runner.TEMP }}
         workflow: ci.yml
@@ -54,11 +56,11 @@ jobs:
         cmake-version: '3.29.x'
     - name: Configure
       run: |
-        cmake --preset linux-gcc-release-config -DBUILD_MEX:BOOL=OFF
+        cmake --preset linux-intel-release-config -DBUILD_MEX:BOOL=OFF
       working-directory: ${{ github.workspace }}
     - name: Build
       run: |
-        cmake --build --preset linux-gcc-release-build --target install
+        cmake --build --preset linux-intel-release-build --target install
       working-directory: ${{ github.workspace }}
     - name: debug output
       uses: actions/upload-artifact@v4
@@ -70,6 +72,6 @@ jobs:
     - name: Upload library
       uses: actions/upload-artifact@v4
       with:
-        name: mumps-linux-gcc
-        path: ${{ github.workspace }}/out/install/linux-gcc-release-config
+        name: mumps-linux-intel
+        path: ${{ github.workspace }}/out/install/linux-intel-release-config
     
