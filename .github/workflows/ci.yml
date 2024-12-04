@@ -75,3 +75,52 @@ jobs:
         name: mumps-linux-intel
         path: ${{ github.workspace }}/out/install/linux-intel-release-config
     
+  windows-build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: worc4021/oneApi@v8
+      with:
+        icx: true
+        ifx: true
+        mkl: true
+    - name: Pull MUMPS
+      run: |
+        curl --output ${{ runner.temp }}/MUMPS_5.7.3.tar.gz ${{ secrets.MUMPS_URL }}/MUMPS_5.7.3.tar.gz
+        tar -xzf ${{ runner.temp }}/MUMPS_5.7.3.tar.gz -C ${{ runner.temp }}
+        cp -r ${{ runner.temp }}/MUMPS_5.7.3/* ${{ github.workspace }}
+        ls -lAh ${{ github.workspace }}/src
+      shell: bash
+    - name: Prepare pulling cmake installed libraries
+      run: |
+        echo "CMAKE_INSTALL_PREFIX=${{ runner.TEMP }}" >> $GITHUB_ENV
+    - name: Download GKlib
+      uses: dawidd6/action-download-artifact@v6
+      with: 
+        name: gklib-windows-intel
+        repo: worc4021/GKlib
+    - name: Download METIS
+      uses: dawidd6/action-download-artifact@v6
+      with: 
+        name: metis-linux-windows
+        repo: worc4021/METIS
+        path: ${{ runner.TEMP }}
+        workflow: ci.yml
+    - name: Setup Ninja
+      uses: seanmiddleditch/gha-setup-ninja@master
+    - name: Setup cmake
+      uses: jwlawson/actions-setup-cmake@v2
+      with:
+        cmake-version: '3.29.x'
+    - name: Configure
+      run: |
+        cmake --preset windows-intel-release-config -DBUILD_MEX:BOOL=OFF
+      working-directory: ${{ github.workspace }}
+      shell: cmd
+    - name: Build
+      run: |
+        cmake --build --preset windows-intel-release-build --target install
+      working-directory: ${{ github.workspace }}
+      shell: cmd
+      
+        
