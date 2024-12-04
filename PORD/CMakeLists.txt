@@ -14,14 +14,16 @@ add_library(pord
     lib/sort.c 
     lib/minpriority.c)
 add_library(mumps::pord ALIAS pord)
-target_include_directories(pord PUBLIC 
-                            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-                            $<INSTALL_INTERFACE:${HEADER_INSTALL_DIR}/pord>)
+
+file(GLOB HEADER_FILES "include/*.h")
+
+target_sources(pord PUBLIC
+                  FILE_SET HEADERS
+                  BASE_DIRS include
+                  FILES ${HEADER_FILES})
 
 set_target_properties(pord PROPERTIES 
         POSITION_INDEPENDENT_CODE ON
         MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-target_compile_definitions(pord PUBLIC PORD_INTSIZE64)
 
-file(GLOB HEADER_FILES "include/*.h")
-install(FILES ${HEADER_FILES} DESTINATION ${HEADER_INSTALL_DIR}/pord)
+target_compile_definitions(pord PUBLIC PORD_INTSIZE64)
