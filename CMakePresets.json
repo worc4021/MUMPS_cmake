@@ -136,7 +136,7 @@
             "inherits": "config-base",
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "icx",
-                "CMAKE_CXX_COMPILER": "icx",
+                "CMAKE_CXX_COMPILER": "icpx",
                 "CMAKE_Fortran_COMPILER": "ifx"
             },
             "hidden": true

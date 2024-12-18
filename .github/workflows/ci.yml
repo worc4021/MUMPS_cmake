@@ -16,13 +16,18 @@ permissions:
 
 jobs:
   linux-build:
+    strategy:
+      matrix:
+        toolchain:
+        - gcc
+        - intel
     runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
     - uses: worc4021/oneApi@v8
       with:
-        icx: false
-        ifx: false
+        icx: ${{ matrix.toolchain == 'intel' }}
+        ifx: ${{ matrix.toolchain == 'intel' }}
         mkl: true
     - name: Pull MUMPS
       run: |
@@ -37,14 +42,14 @@ jobs:
     - name: Download GKlib
       uses: dawidd6/action-download-artifact@v6
       with: 
-        name: gklib-linux-intel
+        name: gklib-linux-${{ matrix.toolchain }}
         repo: worc4021/GKlib
         path: ${{ runner.TEMP }}
         workflow: ci.yml
     - name: Download METIS
       uses: dawidd6/action-download-artifact@v6
       with: 
-        name: metis-linux-intel
+        name: metis-linux-${{ matrix.toolchain }}
         repo: worc4021/METIS
         path: ${{ runner.TEMP }}
         workflow: ci.yml
@@ -56,24 +61,24 @@ jobs:
         cmake-version: '3.29.x'
     - name: Configure
       run: |
-        cmake --preset linux-gcc-release-config -DBUILD_MEX:BOOL=OFF
+        cmake --preset linux-${{ matrix.toolchain }}-release-config -DBUILD_MEX:BOOL=OFF
       working-directory: ${{ github.workspace }}
     - name: Build
       run: |
-        cmake --build --preset linux-gcc-release-build --target install
+        cmake --build --preset linux-${{ matrix.toolchain }}-release-build --target install
       working-directory: ${{ github.workspace }}
     - name: debug output
       uses: actions/upload-artifact@v4
       if: failure()
       with:
-        name: mumps-dbg
+        name: mumps-${{ matrix.toolchain }}-dbg
         path: ${{ github.workspace }}/out
         retention-days: 1
     - name: Upload library
       uses: actions/upload-artifact@v4
       with:
-        name: mumps-linux-intel
-        path: ${{ github.workspace }}/out/install/linux-gcc-release-config
+        name: mumps-linux-${{ matrix.toolchain}}
+        path: ${{ github.workspace }}/out/install/linux-${{ matrix.toolchain }}-release-config
     
   # windows-build:
   #   runs-on: windows-latest
