@@ -20,7 +20,7 @@ jobs:
       matrix:
         toolchain:
         - gcc
-        # - intel
+        - intel
     runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
