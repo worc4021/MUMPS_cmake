@@ -72,7 +72,7 @@ jobs:
       if: failure()
       with:
         name: mumps-${{ matrix.toolchain }}-dbg
-        path: ${{ github.workspace }}/out
+        path: ${{ github.workspace }}
         retention-days: 1
     - name: Upload library
       uses: actions/upload-artifact@v4
