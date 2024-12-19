@@ -48,10 +48,11 @@ endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_c.c.patch.in ${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_c.c.patch)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_common.h.patch.in ${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_common.h.patch)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/libseq/elapse.h.patch.in ${CMAKE_CURRENT_SOURCE_DIR}/libseq/elapse.h.patch)
 
 execute_process(COMMAND patch --no-backup-if-mismatch --input=src/mumps_c.c.patch src/mumps_c.c WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 execute_process(COMMAND patch --no-backup-if-mismatch --input=src/mumps_common.h.patch src/mumps_common.h WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-
+execute_process(COMMAND patch --no-backup-if-mismatch --input=libseq/elapse.h.patch libseq/elapse.h WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 if (USE_INT64)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_int_def64_h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/mumps_int_def.h COPYONLY)
