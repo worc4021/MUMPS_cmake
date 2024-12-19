@@ -8,3 +8,4 @@
 < #endif
 ---
 > @F_SYMBOL@
+> #define mumps_elapse F_SYMBOL(elapse,ELAPSE)
