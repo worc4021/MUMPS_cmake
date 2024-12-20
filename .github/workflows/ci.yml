@@ -102,7 +102,7 @@ jobs:
     - name: Download METIS
       uses: dawidd6/action-download-artifact@v6
       with: 
-        name: metis-linux-windows
+        name: metis-windows-intel
         repo: worc4021/METIS
         path: ${{ runner.TEMP }}
         workflow: ci.yml
