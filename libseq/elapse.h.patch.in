@@ -1,0 +1,11 @@
+28,34c28,29
+< #if (defined(_WIN32) && ! defined(__MINGW32__)) || defined(UPPER)
+< #define mumps_elapse MUMPS_ELAPSE
+< #elif defined(Add__)
+< #define mumps_elapse mumps_elapse__
+< #elif defined(Add_)
+< #define mumps_elapse mumps_elapse_
+< #endif
+---
+> @F_SYMBOL@
+> #define mumps_elapse F_SYMBOL(elapse,ELAPSE)

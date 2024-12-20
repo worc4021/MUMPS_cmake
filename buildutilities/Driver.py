@@ -82,6 +82,7 @@ def main(argv):
 
     with open(os.path.join(basedir,"CMakeLists.txt"), "w+") as f:
         f.write(templater.many_objects())
+        # f.write(templater.flat_libraries('${ARITH}mumps.lib'))
 
     
 

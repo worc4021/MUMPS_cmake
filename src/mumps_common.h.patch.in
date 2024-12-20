@@ -1,0 +1,13 @@
+31,39c31
+< #if defined(UPPER) || defined(MUMPS_WIN32)
+< # define F_SYMBOL(lower_case,upper_case) MUMPS_##upper_case
+< #elif defined(Add_)
+< # define F_SYMBOL(lower_case,upper_case) mumps_##lower_case##_
+< #elif defined(Add__)
+< # define F_SYMBOL(lower_case,upper_case) mumps_##lower_case##__
+< #else
+< # define F_SYMBOL(lower_case,upper_case) mumps_##lower_case
+< #endif
+---
+> @F_SYMBOL@
+> 

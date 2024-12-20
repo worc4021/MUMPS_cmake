@@ -17,7 +17,11 @@ class Templater:
 
         template = dedent("""\
         add_library(<name> OBJECT <sources; separator=" ">)
-        target_include_directories(<name> PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+        target_sources(<name> PUBLIC
+                  FILE_SET HEADERS
+                  BASE_DIRS ${MUMPS_INCLUDEDIR}
+                  FILES ${HEADER_FILES})
+        target_include_directories(<name> PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
         set_target_properties(<name> PROPERTIES 
             Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
             LINKER_LANGUAGE C
@@ -52,7 +56,10 @@ class Templater:
         # target_link_libraries(<name> PRIVATE <objects:target_object(); separator=" ">)
         template = dedent("""\
         add_library(<name> STATIC <if(sources)><sources; separator=" "><else>mumps_common.h<endif>)
-        target_include_directories(<name> PUBLIC $\\<BUILD_INTERFACE:${MUMPS_INCLUDEDIR}\\> $\\<INSTALL_INTERFACE:${HEADER_INSTALL_DIR}\\>)
+        target_sources(<name> PUBLIC
+                  FILE_SET HEADERS
+                  BASE_DIRS ${MUMPS_INCLUDEDIR}
+                  FILES ${HEADER_FILES})
         target_include_directories(<name> PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
         set_target_properties(<name> PROPERTIES
                           Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
@@ -190,7 +197,7 @@ class Templater:
     
     def many_objects(self) -> str:
         
-        retval = ""
+        retval = 'file(GLOB HEADER_FILES "${MUMPS_INCLUDEDIR}/*.h")\n'
 
         (oc,oa) = self.dg.sorted_objects()
 

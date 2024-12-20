@@ -1,5 +1,10 @@
+file(GLOB HEADER_FILES "${MUMPS_INCLUDEDIR}/*.h")
 add_library(ana_orderings_wrappers_m OBJECT ana_orderings_wrappers_m.F)
-target_include_directories(ana_orderings_wrappers_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(ana_orderings_wrappers_m PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(ana_orderings_wrappers_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(ana_orderings_wrappers_m PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -8,7 +13,11 @@ set_target_properties(ana_orderings_wrappers_m PROPERTIES
 target_link_libraries(ana_orderings_wrappers_m PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(ana_blk_m OBJECT ana_blk_m.F)
-target_include_directories(ana_blk_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(ana_blk_m PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(ana_blk_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(ana_blk_m PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -17,7 +26,11 @@ set_target_properties(ana_blk_m PROPERTIES
 target_link_libraries(ana_blk_m PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_memory_mod OBJECT mumps_memory_mod.F)
-target_include_directories(mumps_memory_mod PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_memory_mod PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_memory_mod PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_memory_mod PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -26,7 +39,11 @@ set_target_properties(mumps_memory_mod PROPERTIES
 target_link_libraries(mumps_memory_mod PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(lr_common OBJECT lr_common.F)
-target_include_directories(lr_common PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(lr_common PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(lr_common PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(lr_common PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -35,7 +52,11 @@ set_target_properties(lr_common PROPERTIES
 target_link_libraries(lr_common PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(omp_tps_common_m OBJECT omp_tps_common_m.F)
-target_include_directories(omp_tps_common_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(omp_tps_common_m PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(omp_tps_common_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(omp_tps_common_m PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -44,7 +65,11 @@ set_target_properties(omp_tps_common_m PROPERTIES
 target_link_libraries(omp_tps_common_m PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_ooc_common OBJECT mumps_ooc_common.F)
-target_include_directories(mumps_ooc_common PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_ooc_common PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_ooc_common PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_ooc_common PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -53,7 +78,11 @@ set_target_properties(mumps_ooc_common PROPERTIES
 target_link_libraries(mumps_ooc_common PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_l0_omp_m OBJECT mumps_l0_omp_m.F)
-target_include_directories(mumps_l0_omp_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_l0_omp_m PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_l0_omp_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_l0_omp_m PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -62,7 +91,11 @@ set_target_properties(mumps_l0_omp_m PROPERTIES
 target_link_libraries(mumps_l0_omp_m PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_pivnul_mod OBJECT mumps_pivnul_mod.F)
-target_include_directories(mumps_pivnul_mod PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_pivnul_mod PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_pivnul_mod PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_pivnul_mod PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -71,7 +104,11 @@ set_target_properties(mumps_pivnul_mod PROPERTIES
 target_link_libraries(mumps_pivnul_mod PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(fac_future_niv2_mod OBJECT fac_future_niv2_mod.F)
-target_include_directories(fac_future_niv2_mod PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(fac_future_niv2_mod PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(fac_future_niv2_mod PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(fac_future_niv2_mod PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -80,7 +117,11 @@ set_target_properties(fac_future_niv2_mod PROPERTIES
 target_link_libraries(fac_future_niv2_mod PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(front_data_mgt_m OBJECT front_data_mgt_m.F)
-target_include_directories(front_data_mgt_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(front_data_mgt_m PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(front_data_mgt_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(front_data_mgt_m PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -89,7 +130,11 @@ set_target_properties(front_data_mgt_m PROPERTIES
 target_link_libraries(front_data_mgt_m PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(double_linked_list OBJECT double_linked_list.F)
-target_include_directories(double_linked_list PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(double_linked_list PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(double_linked_list PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(double_linked_list PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -98,7 +143,11 @@ set_target_properties(double_linked_list PROPERTIES
 target_link_libraries(double_linked_list PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_addr OBJECT mumps_addr.c)
-target_include_directories(mumps_addr PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_addr PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_addr PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_addr PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -107,7 +156,11 @@ set_target_properties(mumps_addr PROPERTIES
 target_link_libraries(mumps_addr PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_common OBJECT mumps_common.c)
-target_include_directories(mumps_common PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_common PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_common PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_common PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -116,7 +169,11 @@ set_target_properties(mumps_common PROPERTIES
 target_link_libraries(mumps_common PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_pord OBJECT mumps_pord.c)
-target_include_directories(mumps_pord PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_pord PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_pord PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_pord PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -125,7 +182,11 @@ set_target_properties(mumps_pord PROPERTIES
 target_link_libraries(mumps_pord PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_metis OBJECT mumps_metis.c)
-target_include_directories(mumps_metis PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_metis PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_metis PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_metis PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -134,7 +195,11 @@ set_target_properties(mumps_metis PROPERTIES
 target_link_libraries(mumps_metis PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_metis64 OBJECT mumps_metis64.c)
-target_include_directories(mumps_metis64 PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_metis64 PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_metis64 PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_metis64 PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -143,7 +208,11 @@ set_target_properties(mumps_metis64 PROPERTIES
 target_link_libraries(mumps_metis64 PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_metis_int OBJECT mumps_metis_int.c)
-target_include_directories(mumps_metis_int PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_metis_int PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_metis_int PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_metis_int PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -152,7 +221,11 @@ set_target_properties(mumps_metis_int PROPERTIES
 target_link_libraries(mumps_metis_int PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_scotch OBJECT mumps_scotch.c)
-target_include_directories(mumps_scotch PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_scotch PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_scotch PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_scotch PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -161,7 +234,11 @@ set_target_properties(mumps_scotch PROPERTIES
 target_link_libraries(mumps_scotch PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_scotch64 OBJECT mumps_scotch64.c)
-target_include_directories(mumps_scotch64 PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_scotch64 PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_scotch64 PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_scotch64 PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -170,7 +247,11 @@ set_target_properties(mumps_scotch64 PROPERTIES
 target_link_libraries(mumps_scotch64 PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_scotch_int OBJECT mumps_scotch_int.c)
-target_include_directories(mumps_scotch_int PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_scotch_int PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_scotch_int PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_scotch_int PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -179,7 +260,11 @@ set_target_properties(mumps_scotch_int PROPERTIES
 target_link_libraries(mumps_scotch_int PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_io OBJECT mumps_io.c)
-target_include_directories(mumps_io PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_io PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_io PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_io PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -188,7 +273,11 @@ set_target_properties(mumps_io PROPERTIES
 target_link_libraries(mumps_io PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_io_basic OBJECT mumps_io_basic.c)
-target_include_directories(mumps_io_basic PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_io_basic PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_io_basic PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_io_basic PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -197,7 +286,11 @@ set_target_properties(mumps_io_basic PROPERTIES
 target_link_libraries(mumps_io_basic PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_io_thread OBJECT mumps_io_thread.c)
-target_include_directories(mumps_io_thread PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_io_thread PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_io_thread PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_io_thread PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -206,7 +299,11 @@ set_target_properties(mumps_io_thread PROPERTIES
 target_link_libraries(mumps_io_thread PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_io_err OBJECT mumps_io_err.c)
-target_include_directories(mumps_io_err PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_io_err PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_io_err PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_io_err PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -215,7 +312,11 @@ set_target_properties(mumps_io_err PROPERTIES
 target_link_libraries(mumps_io_err PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_numa OBJECT mumps_numa.c)
-target_include_directories(mumps_numa PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_numa PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_numa PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_numa PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -224,7 +325,11 @@ set_target_properties(mumps_numa PROPERTIES
 target_link_libraries(mumps_numa PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_thread OBJECT mumps_thread.c)
-target_include_directories(mumps_thread PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_thread PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_thread PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_thread PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -233,7 +338,11 @@ set_target_properties(mumps_thread PROPERTIES
 target_link_libraries(mumps_thread PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_save_restore_C OBJECT mumps_save_restore_C.c)
-target_include_directories(mumps_save_restore_C PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_save_restore_C PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_save_restore_C PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_save_restore_C PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -242,7 +351,11 @@ set_target_properties(mumps_save_restore_C PROPERTIES
 target_link_libraries(mumps_save_restore_C PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_config_file_C OBJECT mumps_config_file_C.c)
-target_include_directories(mumps_config_file_C PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_config_file_C PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_config_file_C PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_config_file_C PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -251,7 +364,11 @@ set_target_properties(mumps_config_file_C PROPERTIES
 target_link_libraries(mumps_config_file_C PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_thread_affinity OBJECT mumps_thread_affinity.c)
-target_include_directories(mumps_thread_affinity PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_thread_affinity PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_thread_affinity PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_thread_affinity PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -260,7 +377,11 @@ set_target_properties(mumps_thread_affinity PROPERTIES
 target_link_libraries(mumps_thread_affinity PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_register_thread OBJECT mumps_register_thread.c)
-target_include_directories(mumps_register_thread PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_register_thread PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_register_thread PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_register_thread PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -269,7 +390,11 @@ set_target_properties(mumps_register_thread PROPERTIES
 target_link_libraries(mumps_register_thread PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(ana_blk OBJECT ana_blk.F)
-target_include_directories(ana_blk PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(ana_blk PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(ana_blk PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(ana_blk PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -279,7 +404,11 @@ target_link_libraries(ana_blk PUBLIC $<TARGET_OBJECTS:ana_blk_m>)
 target_link_libraries(ana_blk PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_static_mapping OBJECT mumps_static_mapping.F)
-target_include_directories(mumps_static_mapping PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_static_mapping PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_static_mapping PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_static_mapping PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -289,7 +418,11 @@ target_link_libraries(mumps_static_mapping PUBLIC $<TARGET_OBJECTS:lr_common>)
 target_link_libraries(mumps_static_mapping PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(tools_common OBJECT tools_common.F)
-target_include_directories(tools_common PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(tools_common PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(tools_common PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(tools_common PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -299,7 +432,11 @@ target_link_libraries(tools_common PUBLIC $<TARGET_OBJECTS:lr_common>)
 target_link_libraries(tools_common PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(fac_asm_build_sort_index_ELT_m OBJECT fac_asm_build_sort_index_ELT_m.F)
-target_include_directories(fac_asm_build_sort_index_ELT_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(fac_asm_build_sort_index_ELT_m PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(fac_asm_build_sort_index_ELT_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(fac_asm_build_sort_index_ELT_m PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -309,7 +446,11 @@ target_link_libraries(fac_asm_build_sort_index_ELT_m PUBLIC $<TARGET_OBJECTS:omp
 target_link_libraries(fac_asm_build_sort_index_ELT_m PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(fac_asm_build_sort_index_m OBJECT fac_asm_build_sort_index_m.F)
-target_include_directories(fac_asm_build_sort_index_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(fac_asm_build_sort_index_m PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(fac_asm_build_sort_index_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(fac_asm_build_sort_index_m PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -319,7 +460,11 @@ target_link_libraries(fac_asm_build_sort_index_m PUBLIC $<TARGET_OBJECTS:omp_tps
 target_link_libraries(fac_asm_build_sort_index_m PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(mumps_comm_ibcast OBJECT mumps_comm_ibcast.F)
-target_include_directories(mumps_comm_ibcast PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(mumps_comm_ibcast PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(mumps_comm_ibcast PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(mumps_comm_ibcast PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -329,7 +474,11 @@ target_link_libraries(mumps_comm_ibcast PUBLIC $<TARGET_OBJECTS:fac_future_niv2_
 target_link_libraries(mumps_comm_ibcast PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(fac_ibct_data_m OBJECT fac_ibct_data_m.F)
-target_include_directories(fac_ibct_data_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(fac_ibct_data_m PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(fac_ibct_data_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(fac_ibct_data_m PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -339,7 +488,11 @@ target_link_libraries(fac_ibct_data_m PUBLIC $<TARGET_OBJECTS:front_data_mgt_m>)
 target_link_libraries(fac_ibct_data_m PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(fac_descband_data_m OBJECT fac_descband_data_m.F)
-target_include_directories(fac_descband_data_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(fac_descband_data_m PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(fac_descband_data_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(fac_descband_data_m PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -349,7 +502,11 @@ target_link_libraries(fac_descband_data_m PUBLIC $<TARGET_OBJECTS:front_data_mgt
 target_link_libraries(fac_descband_data_m PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(fac_maprow_data_m OBJECT fac_maprow_data_m.F)
-target_include_directories(fac_maprow_data_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(fac_maprow_data_m PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(fac_maprow_data_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(fac_maprow_data_m PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -359,7 +516,11 @@ target_link_libraries(fac_maprow_data_m PUBLIC $<TARGET_OBJECTS:front_data_mgt_m
 target_link_libraries(fac_maprow_data_m PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(ana_omp_m OBJECT ana_omp_m.F)
-target_include_directories(ana_omp_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+target_sources(ana_omp_m PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
+target_include_directories(ana_omp_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(ana_omp_m PROPERTIES 
     Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
     LINKER_LANGUAGE C
@@ -369,7 +530,10 @@ target_link_libraries(ana_omp_m PUBLIC $<TARGET_OBJECTS:double_linked_list>)
 target_link_libraries(ana_omp_m PRIVATE pord metis::metis mpiseq MKL::MKL)     
 
 add_library(libmumps_common STATIC mumps_mpitoomp_m.F sol_ds_common_m.F ana_orderings.F ana_set_ordering.F ana_AMDMF.F bcast_errors.F estim_flops.F mumps_type2_blocking.F mumps_version.F mumps_print_defined.F sol_common.F)
-target_include_directories(libmumps_common PUBLIC $<BUILD_INTERFACE:${MUMPS_INCLUDEDIR}> $<INSTALL_INTERFACE:${HEADER_INSTALL_DIR}>)
+target_sources(libmumps_common PUBLIC
+          FILE_SET HEADERS
+          BASE_DIRS ${MUMPS_INCLUDEDIR}
+          FILES ${HEADER_FILES})
 target_include_directories(libmumps_common PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_target_properties(libmumps_common PROPERTIES
                   Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
@@ -384,7 +548,11 @@ add_custom_command(TARGET libmumps_common
 target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpiseq MKL::MKL)
         foreach(ARITH ${ARCHS})
             add_library(${ARITH}mumps_struc_def OBJECT ${ARITH}mumps_struc_def.F)
-            target_include_directories(${ARITH}mumps_struc_def PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}mumps_struc_def PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}mumps_struc_def PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}mumps_struc_def PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -394,7 +562,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}omp_tps_m OBJECT ${ARITH}omp_tps_m.F)
-            target_include_directories(${ARITH}omp_tps_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}omp_tps_m PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}omp_tps_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}omp_tps_m PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -404,7 +576,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}lr_type OBJECT ${ARITH}lr_type.F)
-            target_include_directories(${ARITH}lr_type PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}lr_type PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}lr_type PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}lr_type PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -414,7 +590,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_sispointers_m OBJECT ${ARITH}fac_sispointers_m.F)
-            target_include_directories(${ARITH}fac_sispointers_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_sispointers_m PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_sispointers_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_sispointers_m PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -424,7 +604,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}static_ptr_m OBJECT ${ARITH}static_ptr_m.F)
-            target_include_directories(${ARITH}static_ptr_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}static_ptr_m PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}static_ptr_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}static_ptr_m PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -434,7 +618,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}mumps_ooc_buffer OBJECT ${ARITH}mumps_ooc_buffer.F)
-            target_include_directories(${ARITH}mumps_ooc_buffer PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}mumps_ooc_buffer PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}mumps_ooc_buffer PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}mumps_ooc_buffer PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -445,7 +633,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}mumps_mpi3_mod OBJECT ${ARITH}mumps_mpi3_mod.F)
-            target_include_directories(${ARITH}mumps_mpi3_mod PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}mumps_mpi3_mod PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}mumps_mpi3_mod PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}mumps_mpi3_mod PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -455,7 +647,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}ana_aux_ELT OBJECT ${ARITH}ana_aux_ELT.F)
-            target_include_directories(${ARITH}ana_aux_ELT PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}ana_aux_ELT PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}ana_aux_ELT PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}ana_aux_ELT PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -466,7 +662,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}mumps_c OBJECT mumps_c.c)
-            target_include_directories(${ARITH}mumps_c PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}mumps_c PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}mumps_c PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}mumps_c PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -476,7 +676,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}mumps_gpu OBJECT ${ARITH}mumps_gpu.c)
-            target_include_directories(${ARITH}mumps_gpu PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}mumps_gpu PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}mumps_gpu PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}mumps_gpu PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -486,7 +690,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}ana_aux OBJECT ${ARITH}ana_aux.F)
-            target_include_directories(${ARITH}ana_aux PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}ana_aux PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}ana_aux PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}ana_aux PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -497,7 +705,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}ana_aux_par OBJECT ${ARITH}ana_aux_par.F)
-            target_include_directories(${ARITH}ana_aux_par PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}ana_aux_par PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}ana_aux_par PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}ana_aux_par PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -508,7 +720,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_sol_l0omp_m OBJECT ${ARITH}fac_sol_l0omp_m.F)
-            target_include_directories(${ARITH}fac_sol_l0omp_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_sol_l0omp_m PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_sol_l0omp_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_sol_l0omp_m PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -519,7 +735,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}mumps_config_file OBJECT ${ARITH}mumps_config_file.F)
-            target_include_directories(${ARITH}mumps_config_file PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}mumps_config_file PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}mumps_config_file PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}mumps_config_file PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -530,7 +750,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}mumps_save_restore_files OBJECT ${ARITH}mumps_save_restore_files.F)
-            target_include_directories(${ARITH}mumps_save_restore_files PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}mumps_save_restore_files PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}mumps_save_restore_files PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}mumps_save_restore_files PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -541,7 +765,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}sol_omp_m OBJECT ${ARITH}sol_omp_m.F)
-            target_include_directories(${ARITH}sol_omp_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}sol_omp_m PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}sol_omp_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}sol_omp_m PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -552,7 +780,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}sol_distrhs OBJECT ${ARITH}sol_distrhs.F)
-            target_include_directories(${ARITH}sol_distrhs PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}sol_distrhs PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}sol_distrhs PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}sol_distrhs PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -563,7 +795,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}ana_LDLT_preprocess OBJECT ${ARITH}ana_LDLT_preprocess.F)
-            target_include_directories(${ARITH}ana_LDLT_preprocess PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}ana_LDLT_preprocess PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}ana_LDLT_preprocess PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}ana_LDLT_preprocess PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -574,7 +810,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}arrowheads OBJECT ${ARITH}arrowheads.F)
-            target_include_directories(${ARITH}arrowheads PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}arrowheads PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}arrowheads PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}arrowheads PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -585,7 +825,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_distrib_distentry OBJECT ${ARITH}fac_distrib_distentry.F)
-            target_include_directories(${ARITH}fac_distrib_distentry PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_distrib_distentry PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_distrib_distentry PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_distrib_distentry PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -596,7 +840,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_dist_arrowheads_omp OBJECT ${ARITH}fac_dist_arrowheads_omp.F)
-            target_include_directories(${ARITH}fac_dist_arrowheads_omp PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_dist_arrowheads_omp PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_dist_arrowheads_omp PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_dist_arrowheads_omp PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -607,7 +855,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_distrib_ELT OBJECT ${ARITH}fac_distrib_ELT.F)
-            target_include_directories(${ARITH}fac_distrib_ELT PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_distrib_ELT PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_distrib_ELT PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_distrib_ELT PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -618,7 +870,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_process_root2son OBJECT ${ARITH}fac_process_root2son.F)
-            target_include_directories(${ARITH}fac_process_root2son PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_process_root2son PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_process_root2son PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_process_root2son PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -629,7 +885,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_scalings OBJECT ${ARITH}fac_scalings.F)
-            target_include_directories(${ARITH}fac_scalings PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_scalings PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_scalings PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_scalings PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -640,7 +900,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}ini_defaults OBJECT ${ARITH}ini_defaults.F)
-            target_include_directories(${ARITH}ini_defaults PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}ini_defaults PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}ini_defaults PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}ini_defaults PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -651,7 +915,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}rank_revealing OBJECT ${ARITH}rank_revealing.F)
-            target_include_directories(${ARITH}rank_revealing PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}rank_revealing PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}rank_revealing PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}rank_revealing PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -662,7 +930,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}lr_stats OBJECT ${ARITH}lr_stats.F)
-            target_include_directories(${ARITH}lr_stats PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}lr_stats PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}lr_stats PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}lr_stats PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -673,7 +945,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}mumps_lr_data_m OBJECT ${ARITH}mumps_lr_data_m.F)
-            target_include_directories(${ARITH}mumps_lr_data_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}mumps_lr_data_m PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}mumps_lr_data_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}mumps_lr_data_m PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -684,7 +960,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}sol_bwd OBJECT ${ARITH}sol_bwd.F)
-            target_include_directories(${ARITH}sol_bwd PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}sol_bwd PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}sol_bwd PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}sol_bwd PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -695,7 +975,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}sol_fwd OBJECT ${ARITH}sol_fwd.F)
-            target_include_directories(${ARITH}sol_fwd PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}sol_fwd PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}sol_fwd PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}sol_fwd PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -706,7 +990,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}mumps_ooc OBJECT ${ARITH}mumps_ooc.F)
-            target_include_directories(${ARITH}mumps_ooc PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}mumps_ooc PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}mumps_ooc PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}mumps_ooc PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -717,7 +1005,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}mumps_f77 OBJECT ${ARITH}mumps_f77.F)
-            target_include_directories(${ARITH}mumps_f77 PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}mumps_f77 PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}mumps_f77 PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}mumps_f77 PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -728,7 +1020,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_root_parallel OBJECT ${ARITH}fac_root_parallel.F)
-            target_include_directories(${ARITH}fac_root_parallel PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_root_parallel PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_root_parallel PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_root_parallel PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -739,7 +1035,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}lr_core OBJECT ${ARITH}lr_core.F)
-            target_include_directories(${ARITH}lr_core PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}lr_core PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}lr_core PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}lr_core PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -750,7 +1050,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}mumps_sol_es OBJECT ${ARITH}mumps_sol_es.F)
-            target_include_directories(${ARITH}mumps_sol_es PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}mumps_sol_es PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}mumps_sol_es PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}mumps_sol_es PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -761,7 +1065,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}mumps_save_restore OBJECT ${ARITH}mumps_save_restore.F)
-            target_include_directories(${ARITH}mumps_save_restore PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}mumps_save_restore PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}mumps_save_restore PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}mumps_save_restore PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -772,7 +1080,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}ooc_panel_piv OBJECT ${ARITH}ooc_panel_piv.F)
-            target_include_directories(${ARITH}ooc_panel_piv PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}ooc_panel_piv PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}ooc_panel_piv PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}ooc_panel_piv PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -783,7 +1095,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}sol_aux OBJECT ${ARITH}sol_aux.F)
-            target_include_directories(${ARITH}sol_aux PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}sol_aux PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}sol_aux PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}sol_aux PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -794,7 +1110,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}ana_lr OBJECT ${ARITH}ana_lr.F)
-            target_include_directories(${ARITH}ana_lr PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}ana_lr PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}ana_lr PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}ana_lr PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -805,7 +1125,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}mumps_comm_buffer OBJECT ${ARITH}mumps_comm_buffer.F)
-            target_include_directories(${ARITH}mumps_comm_buffer PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}mumps_comm_buffer PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}mumps_comm_buffer PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}mumps_comm_buffer PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -816,7 +1140,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_lr OBJECT ${ARITH}fac_lr.F)
-            target_include_directories(${ARITH}fac_lr PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_lr PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_lr PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_lr PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -827,7 +1155,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}sol_lr OBJECT ${ARITH}sol_lr.F)
-            target_include_directories(${ARITH}sol_lr PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}sol_lr PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}sol_lr PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}sol_lr PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -838,7 +1170,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}ana_dist_m OBJECT ${ARITH}ana_dist_m.F)
-            target_include_directories(${ARITH}ana_dist_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}ana_dist_m PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}ana_dist_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}ana_dist_m PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -849,7 +1185,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}sol_c OBJECT ${ARITH}sol_c.F)
-            target_include_directories(${ARITH}sol_c PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}sol_c PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}sol_c PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}sol_c PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -860,7 +1200,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}mumps_driver OBJECT ${ARITH}mumps_driver.F)
-            target_include_directories(${ARITH}mumps_driver PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}mumps_driver PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}mumps_driver PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}mumps_driver PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -871,7 +1215,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}mumps_load OBJECT ${ARITH}mumps_load.F)
-            target_include_directories(${ARITH}mumps_load PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}mumps_load PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}mumps_load PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}mumps_load PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -882,7 +1230,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}ini_driver OBJECT ${ARITH}ini_driver.F)
-            target_include_directories(${ARITH}ini_driver PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}ini_driver PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}ini_driver PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}ini_driver PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -893,7 +1245,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}sol_driver OBJECT ${ARITH}sol_driver.F)
-            target_include_directories(${ARITH}sol_driver PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}sol_driver PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}sol_driver PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}sol_driver PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -904,7 +1260,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}end_driver OBJECT ${ARITH}end_driver.F)
-            target_include_directories(${ARITH}end_driver PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}end_driver PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}end_driver PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}end_driver PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -915,7 +1275,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}bcast_int OBJECT ${ARITH}bcast_int.F)
-            target_include_directories(${ARITH}bcast_int PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}bcast_int PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}bcast_int PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}bcast_int PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -926,7 +1290,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_lastrtnelind OBJECT ${ARITH}fac_lastrtnelind.F)
-            target_include_directories(${ARITH}fac_lastrtnelind PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_lastrtnelind PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_lastrtnelind PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_lastrtnelind PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -937,7 +1305,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}sol_bwd_aux OBJECT ${ARITH}sol_bwd_aux.F)
-            target_include_directories(${ARITH}sol_bwd_aux PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}sol_bwd_aux PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}sol_bwd_aux PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}sol_bwd_aux PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -948,7 +1320,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}sol_fwd_aux OBJECT ${ARITH}sol_fwd_aux.F)
-            target_include_directories(${ARITH}sol_fwd_aux PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}sol_fwd_aux PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}sol_fwd_aux PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}sol_fwd_aux PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -959,7 +1335,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_mem_dynamic OBJECT ${ARITH}fac_mem_dynamic.F)
-            target_include_directories(${ARITH}fac_mem_dynamic PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_mem_dynamic PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_mem_dynamic PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_mem_dynamic PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -970,7 +1350,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_front_aux OBJECT ${ARITH}fac_front_aux.F)
-            target_include_directories(${ARITH}fac_front_aux PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_front_aux PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_front_aux PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_front_aux PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -981,7 +1365,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}ana_driver OBJECT ${ARITH}ana_driver.F)
-            target_include_directories(${ARITH}ana_driver PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}ana_driver PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}ana_driver PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}ana_driver PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -992,7 +1380,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_driver OBJECT ${ARITH}fac_driver.F)
-            target_include_directories(${ARITH}fac_driver PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_driver PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_driver PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_driver PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1003,7 +1395,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_mem_alloc_cb OBJECT ${ARITH}fac_mem_alloc_cb.F)
-            target_include_directories(${ARITH}fac_mem_alloc_cb PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_mem_alloc_cb PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_mem_alloc_cb PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_mem_alloc_cb PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1014,7 +1410,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_mem_free_block_cb OBJECT ${ARITH}fac_mem_free_block_cb.F)
-            target_include_directories(${ARITH}fac_mem_free_block_cb PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_mem_free_block_cb PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_mem_free_block_cb PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_mem_free_block_cb PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1025,7 +1425,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_mem_stack OBJECT ${ARITH}fac_mem_stack.F)
-            target_include_directories(${ARITH}fac_mem_stack PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_mem_stack PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_mem_stack PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_mem_stack PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1036,7 +1440,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_process_band OBJECT ${ARITH}fac_process_band.F)
-            target_include_directories(${ARITH}fac_process_band PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_process_band PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_process_band PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_process_band PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1047,7 +1455,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_process_end_facto_slave OBJECT ${ARITH}fac_process_end_facto_slave.F)
-            target_include_directories(${ARITH}fac_process_end_facto_slave PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_process_end_facto_slave PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_process_end_facto_slave PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_process_end_facto_slave PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1058,7 +1470,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_process_contrib_type3 OBJECT ${ARITH}fac_process_contrib_type3.F)
-            target_include_directories(${ARITH}fac_process_contrib_type3 PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_process_contrib_type3 PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_process_contrib_type3 PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_process_contrib_type3 PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1069,7 +1485,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_process_message OBJECT ${ARITH}fac_process_message.F)
-            target_include_directories(${ARITH}fac_process_message PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_process_message PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_process_message PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_process_message PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1080,7 +1500,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_process_root2slave OBJECT ${ARITH}fac_process_root2slave.F)
-            target_include_directories(${ARITH}fac_process_root2slave PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_process_root2slave PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_process_root2slave PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_process_root2slave PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1091,7 +1515,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_process_rtnelind OBJECT ${ARITH}fac_process_rtnelind.F)
-            target_include_directories(${ARITH}fac_process_rtnelind PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_process_rtnelind PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_process_rtnelind PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_process_rtnelind PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1102,7 +1530,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_sol_pool OBJECT ${ARITH}fac_sol_pool.F)
-            target_include_directories(${ARITH}fac_sol_pool PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_sol_pool PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_sol_pool PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_sol_pool PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1113,7 +1545,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_asm_master_ELT_m OBJECT ${ARITH}fac_asm_master_ELT_m.F)
-            target_include_directories(${ARITH}fac_asm_master_ELT_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_asm_master_ELT_m PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_asm_master_ELT_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_asm_master_ELT_m PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1124,7 +1560,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_asm_master_m OBJECT ${ARITH}fac_asm_master_m.F)
-            target_include_directories(${ARITH}fac_asm_master_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_asm_master_m PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_asm_master_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_asm_master_m PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1135,7 +1575,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_asm_ELT OBJECT ${ARITH}fac_asm_ELT.F)
-            target_include_directories(${ARITH}fac_asm_ELT PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_asm_ELT PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_asm_ELT PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_asm_ELT PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1146,7 +1590,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_mem_compress_cb OBJECT ${ARITH}fac_mem_compress_cb.F)
-            target_include_directories(${ARITH}fac_mem_compress_cb PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_mem_compress_cb PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_mem_compress_cb PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_mem_compress_cb PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1157,7 +1605,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_process_blocfacto OBJECT ${ARITH}fac_process_blocfacto.F)
-            target_include_directories(${ARITH}fac_process_blocfacto PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_process_blocfacto PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_process_blocfacto PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_process_blocfacto PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1168,7 +1620,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_process_contrib_type1 OBJECT ${ARITH}fac_process_contrib_type1.F)
-            target_include_directories(${ARITH}fac_process_contrib_type1 PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_process_contrib_type1 PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_process_contrib_type1 PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_process_contrib_type1 PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1179,7 +1635,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_process_contrib_type2 OBJECT ${ARITH}fac_process_contrib_type2.F)
-            target_include_directories(${ARITH}fac_process_contrib_type2 PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_process_contrib_type2 PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_process_contrib_type2 PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_process_contrib_type2 PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1190,7 +1650,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_process_master2 OBJECT ${ARITH}fac_process_master2.F)
-            target_include_directories(${ARITH}fac_process_master2 PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_process_master2 PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_process_master2 PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_process_master2 PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1201,7 +1665,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}tools OBJECT ${ARITH}tools.F)
-            target_include_directories(${ARITH}tools PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}tools PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}tools PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}tools PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1212,7 +1680,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}type3_root OBJECT ${ARITH}type3_root.F)
-            target_include_directories(${ARITH}type3_root PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}type3_root PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}type3_root PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}type3_root PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1223,7 +1695,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_front_LU_type1 OBJECT ${ARITH}fac_front_LU_type1.F)
-            target_include_directories(${ARITH}fac_front_LU_type1 PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_front_LU_type1 PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_front_LU_type1 PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_front_LU_type1 PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1234,7 +1710,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_front_type2_aux OBJECT ${ARITH}fac_front_type2_aux.F)
-            target_include_directories(${ARITH}fac_front_type2_aux PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_front_type2_aux PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_front_type2_aux PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_front_type2_aux PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1245,7 +1725,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_front_LDLT_type1 OBJECT ${ARITH}fac_front_LDLT_type1.F)
-            target_include_directories(${ARITH}fac_front_LDLT_type1 PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_front_LDLT_type1 PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_front_LDLT_type1 PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_front_LDLT_type1 PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1256,7 +1740,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_asm OBJECT ${ARITH}fac_asm.F)
-            target_include_directories(${ARITH}fac_asm PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_asm PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_asm PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_asm PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1267,7 +1755,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_process_blfac_slave OBJECT ${ARITH}fac_process_blfac_slave.F)
-            target_include_directories(${ARITH}fac_process_blfac_slave PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_process_blfac_slave PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_process_blfac_slave PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_process_blfac_slave PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1278,7 +1770,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_process_blocfacto_LDLT OBJECT ${ARITH}fac_process_blocfacto_LDLT.F)
-            target_include_directories(${ARITH}fac_process_blocfacto_LDLT PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_process_blocfacto_LDLT PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_process_blocfacto_LDLT PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_process_blocfacto_LDLT PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1289,7 +1785,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_process_maprow OBJECT ${ARITH}fac_process_maprow.F)
-            target_include_directories(${ARITH}fac_process_maprow PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_process_maprow PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_process_maprow PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_process_maprow PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1300,7 +1800,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_determinant OBJECT ${ARITH}fac_determinant.F)
-            target_include_directories(${ARITH}fac_determinant PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_determinant PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_determinant PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_determinant PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1311,7 +1815,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_front_LU_type2 OBJECT ${ARITH}fac_front_LU_type2.F)
-            target_include_directories(${ARITH}fac_front_LU_type2 PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_front_LU_type2 PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_front_LU_type2 PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_front_LU_type2 PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1322,7 +1830,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_front_LDLT_type2 OBJECT ${ARITH}fac_front_LDLT_type2.F)
-            target_include_directories(${ARITH}fac_front_LDLT_type2 PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_front_LDLT_type2 PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_front_LDLT_type2 PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_front_LDLT_type2 PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1333,7 +1845,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_omp_m OBJECT ${ARITH}fac_omp_m.F)
-            target_include_directories(${ARITH}fac_omp_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_omp_m PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_omp_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_omp_m PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1344,7 +1860,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_par_m OBJECT ${ARITH}fac_par_m.F)
-            target_include_directories(${ARITH}fac_par_m PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_par_m PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_par_m PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_par_m PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1355,7 +1875,11 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(${ARITH}fac_b OBJECT ${ARITH}fac_b.F)
-            target_include_directories(${ARITH}fac_b PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/modules ${MUMPS_INCLUDEDIR})
+            target_sources(${ARITH}fac_b PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
+            target_include_directories(${ARITH}fac_b PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(${ARITH}fac_b PROPERTIES 
                 Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
                 LINKER_LANGUAGE C
@@ -1366,7 +1890,10 @@ target_link_libraries(libmumps_common PUBLIC mumps::pord metis::metis mumps::mpi
 
 
             add_library(lib${ARITH}mumps STATIC ${ARITH}sol_distsol.F ${ARITH}ana_reordertree.F ${ARITH}fac_diag.F ${ARITH}fac_mem_stack_aux.F ${ARITH}fac_process_bf.F ${ARITH}fac_scalings_simScaleAbs.F ${ARITH}fac_scalings_simScale_util.F ${ARITH}fac_type3_symmetrize.F ${ARITH}mumps_iXamax.F ${ARITH}ana_mtrans.F ${ARITH}sol_matvec.F ${ARITH}sol_root_parallel.F)
-            target_include_directories(lib${ARITH}mumps PUBLIC $<BUILD_INTERFACE:${MUMPS_INCLUDEDIR}> $<INSTALL_INTERFACE:${HEADER_INSTALL_DIR}>)
+            target_sources(lib${ARITH}mumps PUBLIC
+                      FILE_SET HEADERS
+                      BASE_DIRS ${MUMPS_INCLUDEDIR}
+                      FILES ${HEADER_FILES})
             target_include_directories(lib${ARITH}mumps PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
             set_target_properties(lib${ARITH}mumps PROPERTIES
                               Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
