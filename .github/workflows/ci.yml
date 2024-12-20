@@ -97,6 +97,8 @@ jobs:
       with: 
         name: gklib-windows-intel
         repo: worc4021/GKlib
+        path: ${{ runner.TEMP }}
+        workflow: ci.yml
     - name: Download METIS
       uses: dawidd6/action-download-artifact@v6
       with: 
