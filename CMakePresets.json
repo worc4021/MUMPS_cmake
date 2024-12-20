@@ -28,10 +28,6 @@
                     "hostOS": "Windows",
                     "intelliSenseMode": "windows-msvc-x64"
                 }
-            },
-            "cacheVariables": {
-                "VCPKG_TARGET_TRIPLET": "x64-windows-static",
-                "BUILD_SHARED_LIBS": false
             }
         },
         {
