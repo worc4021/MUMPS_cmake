@@ -89,9 +89,6 @@ jobs:
         cp -r ${{ runner.temp }}/MUMPS_5.7.3/* ${{ github.workspace }}
         ls -lAh ${{ github.workspace }}/src
       shell: cmd
-    - name: Prepare pulling cmake installed libraries
-      run: |
-        echo "CMAKE_INSTALL_PREFIX=${{ runner.TEMP }}" >> $GITHUB_ENV
     - name: Download GKlib
       uses: dawidd6/action-download-artifact@v6
       with: 
@@ -117,6 +114,8 @@ jobs:
         cmake --preset windows-intel-release-config -DBUILD_MEX:BOOL=OFF
       working-directory: ${{ github.workspace }}
       shell: cmd
+      env:
+        CMAKE_INSTALL_PREFIX: ${{ runner.TEMP }}
     - name: Build
       run: |
         cmake --build --preset windows-intel-release-build --target install
