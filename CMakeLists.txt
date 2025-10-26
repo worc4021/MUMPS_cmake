@@ -21,11 +21,10 @@ FetchContent_MakeAvailable(metisdep)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
-# As specified in INSTALL file, all external dependencies should use 64 bit integers. The mkl provides interfaces with 64 ilp64 and 32 lp64
-set(MKL_LINK static)
-set(MKL_THREADING sequential)
-set(MKL_INTERFACE lp64)
-find_package(MKL REQUIRED)
+set(BLA_STATIC ON)
+set(BLA_SIZEOF_INTEGER 8)
+set(BLA_THREAD SEQ)
+find_package(BLAS REQUIRED)
 
 include(FortranCInterface)
 FortranCInterface_VERIFY()

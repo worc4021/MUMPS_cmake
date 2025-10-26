@@ -29,7 +29,7 @@ class Templater:
         target_link_libraries(<name> PUBLIC <objects:target_object(); separator=" ">)
         <endif>
 
-        target_link_libraries(<name> PRIVATE pord metis mpiseq MKL::MKL)     
+        target_link_libraries(<name> PRIVATE pord metis mpiseq BLAS::BLAS)     
                                                
         """)
         self.group.defineTemplate(name='add_single_object_lib',template=template)
@@ -40,7 +40,7 @@ class Templater:
         set_target_properties(<name> PROPERTIES Fortran_MODULE_DIRECTORY <name:object_include()>)
         target_include_directories(<name> PUBLIC <name:object_include()> <module_includes:object_include(); separator=" "> $\\<BUILD_INTERFACE:${MUMPS_INCLUDEDIR}\\> $\\<INSTALL_INTERFACE:${HEADER_INSTALL_DIR}\\>)
         <if(objects)>target_link_libraries(<name> PUBLIC <objects:target_object(); separator=" ">)<endif>
-        target_link_libraries(<name> PRIVATE pord metis mpiseq MKL::MKL)
+        target_link_libraries(<name> PRIVATE pord metis mpiseq BLAS::BLAS)
         """)
         self.group.defineTemplate(name='add_obj_library',template=template)
 
@@ -96,7 +96,7 @@ class Templater:
         set_target_properties(lib<name> PROPERTIES Fortran_MODULE_DIRECTORY <name:object_include()>)
         target_include_directories(lib<name> PUBLIC $\\<BUILD_INTERFACE:${MUMPS_INCLUDEDIR}\\> $\\<INSTALL_INTERFACE:${HEADER_INSTALL_DIR}\\>)
         target_compile_definitions(lib<name> PRIVATE metis pord GEMMT_AVAILABLE)
-        target_link_libraries(lib<name> PUBLIC pord metis mpiseq MKL::MKL <objects:target_object(); separator=" "> <libs; separator=" ">)
+        target_link_libraries(lib<name> PUBLIC pord metis mpiseq BLAS::BLAS <objects:target_object(); separator=" "> <libs; separator=" ">)
         """)
         self.group.defineTemplate(name='add_flat_library',template=template)
 

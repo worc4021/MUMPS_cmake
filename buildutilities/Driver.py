@@ -109,7 +109,7 @@ def main():
         dg.add_dependency(obj,'${ARITH}mumps_c.o')
 
     # # This one somehow is implicit
-    for lib in ['mumps_common.lib','mumps::pord','metis','mumps::mpiseq','MKL::MKL']:
+    for lib in ['mumps_common.lib','mumps::pord','metis','mumps::mpiseq','BLAS::BLAS']:
         dg.add_dependency('${ARITH}mumps.lib', lib)
         dg.add_dependency('mumps_common.lib', lib)
     
