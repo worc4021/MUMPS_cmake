@@ -16,7 +16,7 @@ class Templater:
         # self.group.defineTemplate(name='object_include',template=r'${CMAKE_CURRENT_BINARY_DIR}/<object>')
 
         template = dedent("""\
-        add_library(<name> OBJECT <sources; separator=" ">)
+        add_library(<name> OBJECT <sources:{source| $\{MUMPS_ROOT\}/src/<source>}; separator=" ">)
         target_sources(<name> PUBLIC
                   FILE_SET HEADERS
                   BASE_DIRS ${MUMPS_INCLUDEDIR}
@@ -24,30 +24,28 @@ class Templater:
         target_include_directories(<name> PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
         set_target_properties(<name> PROPERTIES 
             Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
-            LINKER_LANGUAGE C
-            POSITION_INDEPENDENT_CODE ON
-            MSVC_RUNTIME_LIBRARY "MultiThreaded$\\<$\\<CONFIG:Debug\\>:Debug\\>")
+            LINKER_LANGUAGE C)
         <if(objects)>
         target_link_libraries(<name> PUBLIC <objects:target_object(); separator=" ">)
         <endif>
 
-        target_link_libraries(<name> PRIVATE pord metis::metis mpiseq MKL::MKL)     
+        target_link_libraries(<name> PRIVATE pord metis mpiseq MKL::MKL)     
                                                
         """)
         self.group.defineTemplate(name='add_single_object_lib',template=template)
 
 
         template = dedent("""\
-        add_library(<name> OBJECT <sources; separator=" ">)
+        add_library(<name> OBJECT <sources:{source| $\{MUMPS_ROOT\}/src/<source>}; separator=" ">)
         set_target_properties(<name> PROPERTIES Fortran_MODULE_DIRECTORY <name:object_include()>)
         target_include_directories(<name> PUBLIC <name:object_include()> <module_includes:object_include(); separator=" "> $\\<BUILD_INTERFACE:${MUMPS_INCLUDEDIR}\\> $\\<INSTALL_INTERFACE:${HEADER_INSTALL_DIR}\\>)
         <if(objects)>target_link_libraries(<name> PUBLIC <objects:target_object(); separator=" ">)<endif>
-        target_link_libraries(<name> PRIVATE pord metis::metis mpiseq MKL::MKL)
+        target_link_libraries(<name> PRIVATE pord metis mpiseq MKL::MKL)
         """)
         self.group.defineTemplate(name='add_obj_library',template=template)
 
         template = dedent("""\
-        add_library(<name> STATIC <if(sources)><sources; separator=" "><else>mumps_common.h<endif>)
+        add_library(<name> STATIC <if(sources)><sources:{source| $\{MUMPS_ROOT\}/src/<source>}; separator=" "><else>mumps_common.h<endif>)
         set_target_properties(<name> PROPERTIES Fortran_MODULE_DIRECTORY <name:object_include()>)
         target_include_directories(<name> PUBLIC <name:object_include()> <module_includes:object_include(); separator=" "> ${MUMPS_INCLUDEDIR})
         <if(objects)>target_link_libraries(<name> PUBLIC <objects:target_object(); separator=" "> <libs; separator=" ">)<endif>
@@ -55,7 +53,7 @@ class Templater:
         self.group.defineTemplate(name='add_library',template=template)
         # target_link_libraries(<name> PRIVATE <objects:target_object(); separator=" ">)
         template = dedent("""\
-        add_library(<name> STATIC <if(sources)><sources; separator=" "><else>mumps_common.h<endif>)
+        add_library(<name> STATIC <if(sources)><sources:{source| $\{MUMPS_ROOT\}/src/<source>}; separator=" "><else>mumps_common.h<endif>)
         target_sources(<name> PUBLIC
                   FILE_SET HEADERS
                   BASE_DIRS ${MUMPS_INCLUDEDIR}
@@ -63,9 +61,7 @@ class Templater:
         target_include_directories(<name> PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/modules)
         set_target_properties(<name> PROPERTIES
                           Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules
-                          LINKER_LANGUAGE C
-                          POSITION_INDEPENDENT_CODE ON
-                          MSVC_RUNTIME_LIBRARY "MultiThreaded$\\<$\\<CONFIG:Debug\\>:Debug\\>")
+                          LINKER_LANGUAGE C)
                           
         <if(objects)>
         add_dependencies(<name> <objects; separator=" ">)
@@ -96,11 +92,11 @@ class Templater:
         self.group.defineTemplate(name='foreach_flat',template=template)
 
         template = dedent("""\
-        add_library(lib<name> STATIC <sources; separator=" ">)
+        add_library(lib<name> STATIC <sources:{source| $\{MUMPS_ROOT\}/src/<source>}; separator=" ">)
         set_target_properties(lib<name> PROPERTIES Fortran_MODULE_DIRECTORY <name:object_include()>)
         target_include_directories(lib<name> PUBLIC $\\<BUILD_INTERFACE:${MUMPS_INCLUDEDIR}\\> $\\<INSTALL_INTERFACE:${HEADER_INSTALL_DIR}\\>)
         target_compile_definitions(lib<name> PRIVATE metis pord GEMMT_AVAILABLE)
-        target_link_libraries(lib<name> PUBLIC pord metis::metis mpiseq MKL::MKL <objects:target_object(); separator=" "> <libs; separator=" ">)
+        target_link_libraries(lib<name> PUBLIC pord metis mpiseq MKL::MKL <objects:target_object(); separator=" "> <libs; separator=" ">)
         """)
         self.group.defineTemplate(name='add_flat_library',template=template)
 

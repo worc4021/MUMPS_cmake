@@ -3,12 +3,23 @@ project(MUMPS Fortran C CXX)
 
 # Obtain latest source by pulling the tar.gz from https://mumps-solver.org/MUMPS_{MUMPS VERSION currently 5.7.3}.tar.gz
 
+include(SetupMumps.cmake)
+
 include(GNUInstallDirs)
 option(USE_INT64 "Use 64-bit integers" OFF)
 option(BUILD_MEX "Build MATLAB interface" ON)
 
-include($ENV{CMAKE_INSTALL_PREFIX}/cmake/GKlibTargets.cmake)
-include($ENV{CMAKE_INSTALL_PREFIX}/cmake/metisTargets.cmake)
+include(FetchContent)
+FetchContent_Declare(
+  metisdep
+  GIT_REPOSITORY https://github.com/worc4021/METIS.git
+  GIT_TAG        master
+  EXCLUDE_FROM_ALL
+)
+FetchContent_MakeAvailable(metisdep)
+
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 # As specified in INSTALL file, all external dependencies should use 64 bit integers. The mkl provides interfaces with 64 ilp64 and 32 lp64
 set(MKL_LINK static)
@@ -54,30 +65,28 @@ else()
     set(F_SYM_ARITH_C "#define F_SYM_ARITH(lower_case,upper_case) ${F_SYM_ARITH_C}")
 endif()
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_c.c.patch.in ${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_c.c.patch)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_common.h.patch.in ${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_common.h.patch)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/libseq/elapse.h.patch.in ${CMAKE_CURRENT_SOURCE_DIR}/libseq/elapse.h.patch)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_c.c.patch.in ${MUMPS_ROOT}/src/mumps_c.c.patch)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_common.h.patch.in ${MUMPS_ROOT}/src/mumps_common.h.patch)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/libseq/elapse.h.patch.in ${MUMPS_ROOT}/libseq/elapse.h.patch)
 
-execute_process(COMMAND patch --no-backup-if-mismatch --input=src/mumps_c.c.patch src/mumps_c.c WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-execute_process(COMMAND patch --no-backup-if-mismatch --input=src/mumps_common.h.patch src/mumps_common.h WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-execute_process(COMMAND patch --no-backup-if-mismatch --input=libseq/elapse.h.patch libseq/elapse.h WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+execute_process(COMMAND patch --no-backup-if-mismatch --input=src/mumps_c.c.patch src/mumps_c.c WORKING_DIRECTORY ${MUMPS_ROOT})
+execute_process(COMMAND patch --no-backup-if-mismatch --input=src/mumps_common.h.patch src/mumps_common.h WORKING_DIRECTORY ${MUMPS_ROOT})
+execute_process(COMMAND patch --no-backup-if-mismatch --input=libseq/elapse.h.patch libseq/elapse.h WORKING_DIRECTORY ${MUMPS_ROOT})
 
 if (USE_INT64)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_int_def64_h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/mumps_int_def.h COPYONLY)
+    configure_file(${MUMPS_ROOT}/src/mumps_int_def64_h.in ${MUMPS_ROOT}/include/mumps_int_def.h COPYONLY)
 else()
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_int_def32_h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/mumps_int_def.h COPYONLY)
+    configure_file(${MUMPS_ROOT}/src/mumps_int_def32_h.in ${MUMPS_ROOT}/include/mumps_int_def.h COPYONLY)
 endif()
 
 if (CMAKE_Fortran_COMPILER_ID MATCHES "GNU")
     set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fallow-argument-mismatch")
 endif()
 
-set(MUMPS_INCLUDEDIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(MUMPS_INCLUDEDIR ${MUMPS_ROOT}/include)
 
 set(ARCHS)
 list(APPEND ARCHS "d" "s" "c" "z")
-
-set(HEADER_INSTALL_DIR ${CMAKE_INSTALL_INCLUDEDIR}/mumps)
 
 enable_testing()
 
@@ -85,9 +94,9 @@ add_subdirectory(PORD)
 add_subdirectory(libseq)
 add_subdirectory(src)
 add_subdirectory(examples)
-# if (BUILD_MEX)
-#     add_subdirectory(MATLAB)
-# endif()
+# # if (BUILD_MEX)
+# #     add_subdirectory(MATLAB)
+# # endif()
 
 install(TARGETS libdmumps libcmumps libsmumps libzmumps pord mpiseq libmumps_common
       EXPORT mumpsTargets
@@ -96,8 +105,8 @@ install(TARGETS libdmumps libcmumps libsmumps libzmumps pord mpiseq libmumps_com
       RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}/${CMAKE_BUILD_TYPE}
       FILE_SET HEADERS)
 
-file(GLOB HEADER_FILES "include/*.h")
-install(FILES ${HEADER_FILES} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/mumps)
+# file(GLOB HEADER_FILES "${MUMPS_ROOT}/include/*.h")
+# install(FILES ${HEADER_FILES} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/mumps)
 install(EXPORT mumpsTargets
       FILE mumpsTargets.cmake
       NAMESPACE mumps::
