@@ -69,9 +69,9 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_c.c.patch.in ${MUMPS_ROOT}/
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/mumps_common.h.patch.in ${MUMPS_ROOT}/src/mumps_common.h.patch)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/libseq/elapse.h.patch.in ${MUMPS_ROOT}/libseq/elapse.h.patch)
 
-execute_process(COMMAND patch --no-backup-if-mismatch --input=src/mumps_c.c.patch src/mumps_c.c WORKING_DIRECTORY ${MUMPS_ROOT})
-execute_process(COMMAND patch --no-backup-if-mismatch --input=src/mumps_common.h.patch src/mumps_common.h WORKING_DIRECTORY ${MUMPS_ROOT})
-execute_process(COMMAND patch --no-backup-if-mismatch --input=libseq/elapse.h.patch libseq/elapse.h WORKING_DIRECTORY ${MUMPS_ROOT})
+execute_process(COMMAND patch --no-backup-if-mismatch --input=${MUMPS_ROOT}/src/mumps_c.c.patch src/mumps_c.c WORKING_DIRECTORY ${MUMPS_ROOT})
+execute_process(COMMAND patch --no-backup-if-mismatch --input=${MUMPS_ROOT}/src/mumps_common.h.patch src/mumps_common.h WORKING_DIRECTORY ${MUMPS_ROOT})
+execute_process(COMMAND patch --no-backup-if-mismatch --input=${MUMPS_ROOT}/libseq/elapse.h.patch libseq/elapse.h WORKING_DIRECTORY ${MUMPS_ROOT})
 
 if (USE_INT64)
     configure_file(${MUMPS_ROOT}/src/mumps_int_def64_h.in ${MUMPS_ROOT}/include/mumps_int_def.h COPYONLY)
