@@ -97,6 +97,19 @@ add_subdirectory(examples)
 # #     add_subdirectory(MATLAB)
 # # endif()
 
+foreach(ARITH ${ARCHS})
+    target_sources(lib${ARITH}mumps PUBLIC 
+        FILE_SET HEADERS
+        BASE_DIRS ${MUMPS_INCLUDEDIR}
+        FILES
+            ${MUMPS_INCLUDEDIR}/${ARITH}mumps_c.h
+            ${MUMPS_INCLUDEDIR}/${ARITH}mumps_struc.h
+            ${MUMPS_INCLUDEDIR}/mumps_compat.h
+            ${MUMPS_INCLUDEDIR}/mumps_int_def.h
+    )
+endforeach(ARITH ${ARCHS})
+
+
 install(TARGETS libdmumps libcmumps libsmumps libzmumps pord mpiseq libmumps_common
       EXPORT mumpsTargets
       LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/${CMAKE_BUILD_TYPE}
@@ -104,8 +117,6 @@ install(TARGETS libdmumps libcmumps libsmumps libzmumps pord mpiseq libmumps_com
       RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}/${CMAKE_BUILD_TYPE}
       FILE_SET HEADERS)
 
-# file(GLOB HEADER_FILES "${MUMPS_ROOT}/include/*.h")
-# install(FILES ${HEADER_FILES} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/mumps)
 install(EXPORT mumpsTargets
       FILE mumpsTargets.cmake
       NAMESPACE mumps::
