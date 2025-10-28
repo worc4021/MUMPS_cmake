@@ -22,9 +22,9 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 set(BLA_STATIC ON)
-set(BLA_SIZEOF_INTEGER 8)
 set(BLA_THREAD SEQ)
 find_package(BLAS REQUIRED)
+find_package(LAPACK REQUIRED)
 
 include(FortranCInterface)
 FortranCInterface_VERIFY()
