@@ -24,22 +24,9 @@ FortranCInterface_HEADER(${MUMPS_ROOT}/examples/FCMangle.h
                             MACRO_NAMESPACE "FC_"
                             SYMBOL_NAMESPACE "FC_")
 
+enable_testing()
 include(CTest)
-# include(FetchContent)
-# FetchContent_Declare(
-#   googletest
-#   URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
-# )
-# # For Windows: Prevent overriding the parent project's compiler/linker settings
-# set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-# FetchContent_MakeAvailable(googletest)
-# include(GoogleTest)
-# add_executable(cpp_example cpp_example.cpp)
-# target_link_libraries(cpp_example PRIVATE libdmumps GTest::gtest)
-# target_include_directories(cpp_example PRIVATE ${MUMPS_INCLUDEDIR})
-# gtest_add_tests(cpp_example "" AUTO)
 
-
-add_test(NAME c_example_save_restore_exe COMMAND c_example_save_restore)
-add_test(NAME c_example_exe COMMAND c_example)
-add_test(NAME multiple_arithmetics_example_exe COMMAND multiple_arithmetics_example)
+add_test(NAME c_example_save_restore_exe COMMAND $<TARGET_FILE:c_example_save_restore>)
+add_test(NAME c_example_exe COMMAND $<TARGET_FILE:c_example>)
+add_test(NAME multiple_arithmetics_example_exe COMMAND $<TARGET_FILE:multiple_arithmetics_example>)

@@ -8,13 +8,12 @@ include(SetupMumps.cmake)
 include(GNUInstallDirs)
 option(USE_INT64 "Use 64-bit integers" OFF)
 option(BUILD_MEX "Build MATLAB interface" ON)
-
+option(MUMPS_BUILD_TESTS "Build tests" ON)
 include(FetchContent)
 FetchContent_Declare(
   metisdep
   GIT_REPOSITORY https://github.com/worc4021/METIS.git
   GIT_TAG        master
-  EXCLUDE_FROM_ALL
 )
 FetchContent_MakeAvailable(metisdep)
 
@@ -87,15 +86,14 @@ set(MUMPS_INCLUDEDIR ${MUMPS_ROOT}/include)
 set(ARCHS)
 list(APPEND ARCHS "d" "s" "c" "z")
 
-enable_testing()
 
 add_subdirectory(PORD)
 add_subdirectory(libseq)
 add_subdirectory(src)
-add_subdirectory(examples)
-# # if (BUILD_MEX)
-# #     add_subdirectory(MATLAB)
-# # endif()
+if (MUMPS_BUILD_TESTS)
+    add_subdirectory(examples)
+endif()
+
 
 foreach(ARITH ${ARCHS})
     target_sources(lib${ARITH}mumps PUBLIC 
