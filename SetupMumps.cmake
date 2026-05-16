@@ -1,5 +1,5 @@
 if (NOT DEFINED MUMPS_VERSION)
-set(MUMPS_VERSION "5.8.1")
+set(MUMPS_VERSION "5.9.0")
 endif()
 
 if(WIN32)

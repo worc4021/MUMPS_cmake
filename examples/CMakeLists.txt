@@ -24,8 +24,7 @@ FortranCInterface_HEADER(${MUMPS_ROOT}/examples/FCMangle.h
                             MACRO_NAMESPACE "FC_"
                             SYMBOL_NAMESPACE "FC_")
 
-enable_testing()
-include(CTest)
+
 
 add_test(NAME c_example_save_restore_exe COMMAND $<TARGET_FILE:c_example_save_restore>)
 add_test(NAME c_example_exe COMMAND $<TARGET_FILE:c_example>)

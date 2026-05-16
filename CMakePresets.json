@@ -300,6 +300,12 @@
             "displayName": "MSVC Release"
         },
         {
+            "name": "windows-gcc-release-test",
+            "inherits": ["test-base","test-windows"],
+            "configurePreset": "windows-gcc-release-config",
+            "displayName": "windows GCC Release"
+        },
+        {
             "name": "linux-gcc-release-test",
             "inherits": ["test-base","test-linux"],
             "configurePreset": "linux-gcc-release-config",

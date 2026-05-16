@@ -1,29 +1,26 @@
 cmake_minimum_required(VERSION 3.15)
 project(MUMPS Fortran C CXX)
 
-# Obtain latest source by pulling the tar.gz from https://mumps-solver.org/MUMPS_{MUMPS VERSION currently 5.7.3}.tar.gz
+# Obtain latest source by pulling the tar.gz from https://mumps-solver.org/MUMPS_{MUMPS VERSION currently 5.9.0}.tar.gz
 
 include(SetupMumps.cmake)
 
 include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+
 option(USE_INT64 "Use 64-bit integers" OFF)
 option(BUILD_MEX "Build MATLAB interface" ON)
 option(MUMPS_BUILD_TESTS "Build tests" ON)
-include(FetchContent)
-FetchContent_Declare(
-  metisdep
-  GIT_REPOSITORY https://github.com/worc4021/METIS.git
-  GIT_TAG        master
-)
-FetchContent_MakeAvailable(metisdep)
+
+
+find_package(OpenBLAS REQUIRED)
+find_package(METIS REQUIRED)
+find_package(GKlib REQUIRED)
+find_package(OpenMP REQUIRED)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
-set(BLA_STATIC ON)
-set(BLA_THREAD SEQ)
-find_package(BLAS REQUIRED)
-find_package(LAPACK REQUIRED)
 
 include(FortranCInterface)
 FortranCInterface_VERIFY()
@@ -91,6 +88,8 @@ add_subdirectory(PORD)
 add_subdirectory(libseq)
 add_subdirectory(src)
 if (MUMPS_BUILD_TESTS)
+    enable_testing()
+    include(CTest)
     add_subdirectory(examples)
 endif()
 
@@ -108,14 +107,21 @@ foreach(ARITH ${ARCHS})
 endforeach(ARITH ${ARCHS})
 
 
+configure_package_config_file(mumpsConfig.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/mumpsConfig.cmake
+  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mumps)
+
 install(TARGETS libdmumps libcmumps libsmumps libzmumps pord mpiseq libmumps_common
       EXPORT mumpsTargets
-      LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/${CMAKE_BUILD_TYPE}
-      ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/${CMAKE_BUILD_TYPE}
-      RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}/${CMAKE_BUILD_TYPE}
+      LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+      ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+      RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
       FILE_SET HEADERS)
 
 install(EXPORT mumpsTargets
       FILE mumpsTargets.cmake
       NAMESPACE mumps::
-      DESTINATION cmake)
+      DESTINATION  ${CMAKE_INSTALL_LIBDIR}/cmake/mumps)
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/mumpsConfig.cmake
+      DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mumps )
